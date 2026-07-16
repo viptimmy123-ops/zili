@@ -14,4 +14,4 @@ jobs:
       - name: Login
         run: tcb login --apiKeyId ${{ secrets.TENCENT_SECRET_ID }} --apiKey ${{ secrets.TENCENT_SECRET_KEY }}
       - name: Deploy static site
-        run: tcb hosting deploy dist / -e zili-d6g45h4os6ddf10f0
+        run: tcb hosting deploy index.html index.html -e zili-d6g45h4os6ddf10f0
