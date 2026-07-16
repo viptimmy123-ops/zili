@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "envId": "zili-d6g45h4os6ddf10f0",
+  "framework": {
+    "name": "zili",
+    "plugins": {
+      "hosting": {
+        "use": "@cloudbase/framework-plugin-website",
+        "inputs": {
+          "outputPath": ".",
+          "cloudPath": "/",
+          "ignore": [".git", ".github", "node_modules", "cloudbaserc.json"]
+        }
+      }
+    }
+  }
+}
