@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="zili-version" content="1.1.1">
+<meta name="zili-version" content="1.2.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>字里 ZILI · 自媒体文章排版工具 — AI 一键排版、精选模板、一键复制成稿</title>
 <meta name="description" content="字里 ZILI 是一款为自媒体创作者设计的在线排版工具：15 套精选模板，AI 一键排版，组件化编辑，实时预览，一键复制成稿。公测期全部免费。">
@@ -2756,11 +2756,20 @@ function showPage(k){
   if(k==='gallery') renderGallery();
   if(k==='trash') renderTrash();
   if(k==='messages') renderMessages();
+  if(window.__routeReady && !document.getElementById('viewApp').hidden) syncHash('app');
 }
 function showView(v){
   document.getElementById('viewSite').hidden   = v!=='site';
   document.getElementById('viewApp').hidden    = v!=='app';
   document.getElementById('viewEditor').hidden = v!=='editor';
+  if(window.__routeReady) syncHash(v);
+}
+/* 分区路由：官网 #site/xx · 工作台 #app/xx · 编辑器 #editor —— 刷新各回各处 */
+function curSitePage(){ const v=[...document.querySelectorAll('.sview')].find(x=>!x.hidden); return v?v.id.slice(3):'home'; }
+function curAppPage(){ const p=document.querySelector('.page.on'); return p?p.id.slice(5):'home'; }
+function syncHash(v){
+  const h = v==='site' ? '#site/'+curSitePage() : v==='app' ? '#app/'+curAppPage() : '#editor';
+  if(location.hash!==h) history.replaceState(null,'',h);
 }
 function siteGo(k, anchor){
   const key = document.getElementById('sv-'+k) ? k : '404';
@@ -2773,6 +2782,7 @@ function siteGo(k, anchor){
   } else {
     site.scrollTop = 0;
   }
+  if(window.__routeReady && !document.getElementById('viewSite').hidden) syncHash('site');
 }
 function goApp(){ showView('app'); }
 function goSite(){ showView('site'); }
@@ -4844,7 +4854,17 @@ runDemo();
   if(m && TPLS[m[1]]){
     history.replaceState(null,'',location.pathname);
     newArticle(m[1]);
+  } else {
+    /* 恢复刷新前的位置：官网/工作台分开记忆 */
+    const r = location.hash.match(/^#(site|app|editor)(?:\/([a-z0-9-]+))?/);
+    if(r){
+      if(r[1]==='site'){ showView('site'); if(r[2]) siteGo(r[2]); }
+      else if(r[1]==='app'){ showView('app'); if(r[2] && document.getElementById('page-'+r[2])) showPage(r[2]); }
+      else if(r[1]==='editor'){ const last=(works||[]).slice().sort((a,b)=>b.ts-a.ts)[0]; if(last){ openWork(last.id); } else showView('app'); }
+    }
   }
+  window.__routeReady = true;
+  syncHash(!document.getElementById('viewEditor').hidden?'editor':!document.getElementById('viewApp').hidden?'app':'site');
 })();
 </script>
 <script>
