@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="zili-version" content="1.2.6">
+<meta name="zili-version" content="1.2.7">
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -2726,14 +2726,10 @@ function fmtTime(ts){
   return d.toDateString()===n.toDateString() ? '今天 '+hm
     : String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+hm;
 }
-const SEED = [
-  {id:'seed1', title:'人生最好的状态，是不内耗', tpl:'blank',   words:1824, ts:Date.now()-3600e3*3},
-  {id:'seed2', title:'关于成长的 8 个思考',       tpl:'editorial',    words:3210, ts:Date.now()-3600e3*26},
-  {id:'seed3', title:'深夜写给焦虑的你',           tpl:'night',     words:2456, ts:Date.now()-3600e3*50},
-  {id:'seed4', title:'生活的秩序，藏在文字里',     tpl:'oriental', words:1980, ts:Date.now()-3600e3*74},
-  {id:'seed5', title:'如何用写作记录生活',         tpl:'business',     words:2680, ts:Date.now()-3600e3*98},
-];
-let works   = lsGet('zili.works') || SEED;
+const SEED = [];
+/* 新用户默认空列表；若本地存的还是演示种子数据，清掉 */
+(function(){ const w=lsGet('zili.works'); if(w && w.length && w.every(x=>/^seed\d$/.test(x.id))) { localStorage.removeItem('zili.works'); } })();
+let works   = lsGet('zili.works') || [];
 /* 迁移旧模板 key → 新 6 套（删除旧模板后，历史草稿仍可用） */
 const TPL_MIGRATE = {liubai:'blank',zazhi:'editorial',zhiyu:'warm',shangwu:'business',zhongshi:'oriental',keji:'business',yedu:'night',molandi:'warm',jiaopian:'blank',ziran:'warm',geek:'business',shouzhang:'warm'};
 works.forEach(w=>{ if(w && w.tpl && !TPLS[w.tpl]) w.tpl = TPL_MIGRATE[w.tpl] || 'blank'; });
