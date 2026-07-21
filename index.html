@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="zili-version" content="1.8.0">
+<meta name="zili-version" content="1.8.2">
 <meta name="google-site-verification" content="uPOVjFndomr_1ajkRg1XBHA-kNA-CWQICqVX4FkhKRI">
 <meta name="msvalidate.01" content="912A8CE8FE33267FE89776019BD27400">
 <meta name="baidu-site-verification" content="codeva-W7VRCoIlEm">
@@ -4644,10 +4644,10 @@ document.getElementById('ofModal').addEventListener('click', e=>{
 const AI_ENDPOINT = "https://zili-d6g45h4os6ddf10f0-1454473137.ap-shanghai.app.tcloudbase.com/aiFormat";
 const FEEDBACK_ENDPOINT = "https://zili-d6g45h4os6ddf10f0-1454473137.ap-shanghai.app.tcloudbase.com/feedback";
 /* 统一模型调用：预览环境用内置接口，线上用云函数中转；15 秒超时自动降级本地引擎 */
-function aiTimeout(p, ms){ return Promise.race([p, new Promise((_,rej)=>setTimeout(()=>rej(new Error('AI 超时')), ms||15000))]); }
+function aiTimeout(p, ms){ return Promise.race([p, new Promise((_,rej)=>setTimeout(()=>rej(new Error('AI 超时')), ms||30000))]); }
 async function callModel(ask){
   if(window.claude && window.claude.complete){
-    return await aiTimeout(window.claude.complete({ model:'claude-sonnet-4-5', max_tokens:4000, messages:[{ role:'user', content:ask }] }));
+    return await aiTimeout(window.claude.complete({ model:'claude-sonnet-4-5', max_tokens:6000, messages:[{ role:'user', content:ask }] }));
   }
   if(AI_ENDPOINT){
     const r = await aiTimeout(fetch(AI_ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ prompt:ask }) }));
@@ -4658,6 +4658,34 @@ async function callModel(ask){
     return t;
   }
   throw new Error('智能引擎不可用');
+}
+/* AI 返回稳健解析：容忍代码块包裹、前后杂讯、字段级抢救 */
+function parseAiJson(text){
+  let s = String(text).replace(/```json|```/g,'').trim();
+  const a = s.indexOf('{'), b = s.lastIndexOf('}');
+  if(a<0 || b<=a) return null;
+  s = s.slice(a, b+1);
+  try{ return JSON.parse(s); }catch(e){}
+  try{ return JSON.parse(s.replace(/\r?\n\s*/g,' ')); }catch(e){}
+  const tpl=(s.match(/"tpl"\s*:\s*"([a-z]+)"/)||[])[1];
+  const title=(s.match(/"title"\s*:\s*"([^"]{1,60})"/)||[])[1];
+  const reason=(s.match(/"reason"\s*:\s*"([^"]{1,60})"/)||[])[1];
+  const m=s.match(/"html"\s*:\s*"([\s\S]*)"\s*}\s*$/);
+  if(tpl && m){ let html; try{ html=JSON.parse('"'+m[1]+'"'); }catch(e){ html=m[1].replace(/\\n/g,'').replace(/\\"/g,'"'); } return {tpl, title, reason, html}; }
+  return null;
+}
+/* AI 输出白名单清洗：未知标签解包、未知类名移除、危险属性剥离 */
+function sanitizeAiHtml(h){
+  h = String(h).replace(/<script[\s\S]*?<\/script>/gi,'').replace(/ on\w+="[^"]*"/gi,'').replace(/ style="[^"]*"/gi,'');
+  const box=document.createElement('div'); box.innerHTML=h;
+  const okTag=new Set(['H2','H3','P','HR','UL','OL','LI','BLOCKQUOTE','DIV','SPAN','STRONG','EM','BR','FIGURE','FIGCAPTION','TABLE','TBODY','TR','TD']);
+  const okCls=new Set(['no','div-dot','jinju','jinju2','qm','card','card-t','card2','c2-h','c2-b','note','note-t','qa','q','a','stat','stat-n','stat-l','steps','step','sn','st-t','checks','ck','ph-img','uploaded','endcard','ec-t','ec-s','ec-i','ec-l','ec-r','ec-tbl','ec-qr','iconrow','iconrow-item','ir-ic','ir-gap','ir-t','ir-d','opener','op-k','op-m']);
+  Array.from(box.querySelectorAll('*')).forEach(el=>{
+    if(!okTag.has(el.tagName)){ el.replaceWith.apply(el, Array.from(el.childNodes)); return; }
+    Array.from(el.classList).forEach(c=>{ if(!okCls.has(c)) el.classList.remove(c); });
+    if(!el.classList.length) el.removeAttribute('class');
+  });
+  return box.innerHTML;
 }
 /* ═══ AI 排版：调用大模型生成排版结构（严格限定组件词汇表） ═══ */
 async function aiLayout(raw){
@@ -4675,26 +4703,36 @@ async function aiLayout(raw){
 <div class="checks"><p><span class="ck">✓</span>项</p></div>
 <ul><li>项</li></ul> / <ol><li>项</li></ol>
 <figure><div class="ph-img">点击或拖拽图片到此</div><figcaption>图注</figcaption></figure>
-模板键（tpl 只能取其一）：liubai极简 zazhi杂志 zhiyu治愈 shangwu商务 zhongshi新中式 keji科技 yedu夜读 molandi美学 jiaopian胶片 ziran自然 geek极客教程 shouzhang手账`;
+模板键（tpl 只能取其一，必须原样输出以下英文键）：blank留白极简 warm温柔治愈 editorial杂志深度 night夜读情绪 business商务专业 oriental东方雅致 zhiyu草木温和 zhongshi新中式 keji科技教程 molandi莫兰迪美学 jiaopian胶片复古 ziran自然清新 geek极客暗黑 shouzhang手账日记 haibao海报大字`;
   const ask = `你是文章排版引擎。分析下面的文章，把内容编排成合适的组件结构。要求：
 1. 保留原文文字，不改写、不删减、不添加内容（组件的结构性文字除外）
 2. 根据内容气质选择最合适的模板键与排版参数
-3. 只输出 JSON（无 markdown 代码块），格式：{"tpl":"模板键","style":{"lh":""或"2.0","gap":"16px"或"1.6em","indent":true/false},"reason":"15字内的排版思路","html":"组件HTML"}
+3. 组件匹配（重要）：积极使用组件库表达内容语义——人物对话/问答→qa 或 blockquote；关键数字/百分比→stat；操作步骤/方法→steps；清单/要点罗列→checks 或 card；核心观点/有力量的短句→jinju 或 jinju2（全文 2–3 处）；补充说明/警示→note；概念+解释→card2；组件总数可达段落数的一半，但开头第一段保持普通段落；每 3–5 个自然段设一个 <h2>（重要章节加 <span class="no">01</span> 编号），章节标题精炼 ≤16 字；hr 与 div-dot 合计最多 2 处
+4. 从文章中提炼一个吸引人的主标题放入 title 字段（≤24字，若首行本身就是标题则直接采用，主标题不要再出现在 html 里）
+5. 只输出 JSON（无 markdown 代码块），html 字段值内的真实换行必须写成 \\n，格式：{"tpl":"模板键","title":"主标题","style":{"lh":""或"2.0","gap":"16px"或"1.6em","indent":true/false},"reason":"15字内的排版思路","html":"组件HTML"}
 
 ${vocab}
 
 【文章】
-${raw.slice(0, 8000)}`;
+${raw.slice(0, 10000)}`;
   const text = await callModel(ask);
-  const obj = JSON.parse(String(text).replace(/```json|```/g,'').trim());
-  if(!obj.html || !TPLS[obj.tpl]) throw new Error('智能返回不完整');
-  obj.html = obj.html.replace(/<script[\s\S]*?<\/script>/gi,'').replace(/ on\w+="[^"]*"/gi,'');
+  const obj = parseAiJson(text);
+  if(obj && obj.tpl && !TPLS[obj.tpl]){
+    const alias={liubai:'blank',zazhi:'editorial',shangwu:'business',yedu:'night',wendu:'warm',dongfang:'oriental',jike:'geek',minimal:'blank',magazine:'editorial',tech:'keji'};
+    obj.tpl = alias[obj.tpl] || 'blank';
+  }
+  if(!obj || !obj.html || !TPLS[obj.tpl]) throw new Error('智能返回不完整');
+  obj.html = sanitizeAiHtml(obj.html);
+  /* 保真校验：AI 丢失原文过多时抛出，自动降级本地引擎 */
+  const plain = s=>s.replace(/<[^>]+>/g,'').replace(/\s+/g,'');
+  const kept = plain(obj.html).length, srcLen = raw.slice(0,10000).replace(/\s+/g,'').length;
+  if(srcLen>200 && kept < srcLen*0.7) throw new Error('AI 丢失原文过多');
   return obj;
 }
 /* AI/一键排版后：沿用模板成稿的图文格式，随机补 1–2 张模板配图（已有图则保留不动） */
 function injectTplImagery(k){
   const canvas = document.getElementById('canvas');
-  if(canvas.querySelector('.ph-img, img')) return '';
+  if([...canvas.querySelectorAll('.ph-img, img')].some(el=>!el.closest('.endcard'))) return '';
   const key = ZREAL.w[k] ? k : 'blank';
   const fig = cap => (window.__i18nTr||(x=>x))(`<figure><div class="ph-img uploaded"><img loading="lazy" decoding="async" src="${ZREAL.w[key]}" onerror="zimgFallback(this,'w','${key}')"></div><figcaption>${cap}</figcaption></figure>`);
   const kids = [...canvas.children];
@@ -4734,27 +4772,40 @@ async function applyOF(){
   let aiFellBack = false;
   _track('one_click_layout', {ai: document.getElementById('ofAiChk').checked, chars: raw.length});
   /* AI 优先，失败自动降级本地引擎 */
-  if(document.getElementById('ofAiChk').checked){
+  const aiWanted = document.getElementById('ofAiChk').checked;
+  if(aiWanted && raw.length>10000){ toast('文章较长（'+raw.length+' 字），已使用本地极速引擎完整排版'); }
+  if(aiWanted && raw.length<=10000){
     const go = document.getElementById('ofGo');
     const orig = go.textContent;
     ofBusy = true;
-    go.disabled = true; go.innerHTML = '<span class="ofspin"></span>一键排版中…';
+    go.disabled = true; go.innerHTML = '<span class="ofspin"></span>分析文章结构…';
+    const stStages=['匹配模板气质…','编排组件结构…','生成排版中…','即将完成…'];
+    let stI=0; const stTimer=setInterval(()=>{ if(stI<stStages.length) go.innerHTML='<span class="ofspin"></span>'+stStages[stI++]; }, 4000);
     document.getElementById('ofModal').classList.add('busy');
     try{
-      const obj = await aiLayout(raw);
-      if(ofFromHome){ if(!curId) curId=uid(); openEditor(); }
-      /* 首行标题选项对 AI 模式同样生效 */
+      /* 首行提取为大标题：从正文中移除，避免 AI 再当章节标题输出一遍 */
+      let aiRaw = raw, aiTitle = '';
       const lines0 = raw.split(/\n+/).map(x=>x.trim()).filter(Boolean);
+      const t0 = lines0.length ? lines0[0].replace(/["\u201d\u300d\u300f\u3011\u300b)）]+$/,'') : '';
       if(document.getElementById('ofTitleChk').checked && lines0.length>1 &&
-         lines0[0].length<=30 && !/[。！？；.!?;]$/.test(lines0[0])){
-        document.getElementById('artTitle').value = panguSpacing(punctNormalize(lines0[0]));
+         lines0[0].length<=38 && !/[。！？；.!?;，,]$/.test(t0)){
+        aiTitle = panguSpacing(punctNormalize(lines0[0]));
+        aiRaw = lines0.slice(1).join('\n');
       }
-      finishAiLayout(obj);
+      const obj = await aiLayout(aiRaw);
+      if(ofFromHome){ if(!curId) curId=uid(); openEditor(); }
+      if(!aiTitle && obj.title && document.getElementById('ofTitleChk').checked && !document.getElementById('artTitle').value.trim()){
+        aiTitle = panguSpacing(punctNormalize(String(obj.title).slice(0,40)));
+      }
+      if(aiTitle) document.getElementById('artTitle').value = aiTitle;
+      clearInterval(stTimer);
       ofBusy = false;
+      finishAiLayout(obj);
       document.getElementById('ofModal').classList.remove('busy');
       go.disabled=false; go.textContent=orig;
       return;
     }catch(e){
+      clearInterval(stTimer);
       ofBusy = false;
       document.getElementById('ofModal').classList.remove('busy');
       go.disabled=false; go.textContent=orig;
@@ -4764,8 +4815,9 @@ async function applyOF(){
   }
   if(ofFromHome){ if(!curId) curId=uid(); openEditor(); }
   let lines = raw.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+  const tL = lines.length ? lines[0].replace(/["\u201d\u300d\u300f\u3011\u300b)）]+$/,'') : '';
   if(document.getElementById('ofTitleChk').checked && lines.length>1 &&
-     lines[0].length<=30 && !/[。！？；.!?;]$/.test(lines[0])){
+     lines[0].length<=38 && !/[。！？；.!?;，,]$/.test(tL)){
     document.getElementById('artTitle').value = panguSpacing(punctNormalize(lines[0]));
     lines = lines.slice(1);
   }
