@@ -2878,7 +2878,7 @@ input[type=color]{width:24px;height:24px;border:1px solid var(--line);border-rad
     <input type="checkbox" id="ofTplChk" checked hidden>
     <input type="checkbox" id="ofNumChk" checked hidden>
     <input type="checkbox" id="ofEndChk" checked hidden>
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px">
+    <div style="display:none;align-items:center;justify-content:space-between;gap:12px;margin-top:16px">
       <label style="display:flex;align-items:center;gap:9px;font-size:13px;color:#5A5F66;cursor:pointer;user-select:none">
         <input type="checkbox" id="ofImgAiChk" style="width:15px;height:15px;accent-color:#1B1B1F;cursor:pointer">
         <span>✦ AI 智能配图</span>
@@ -5579,7 +5579,7 @@ async function applyOF(){
 const PH_RICH = '<span class="ph-actions" contenteditable="false">'
   + '<button type="button" class="ph-btn" data-act="local"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M5 20h14"/></svg>本地上传</button>'
   + '<button type="button" class="ph-btn ghost" data-act="gallery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>图库选择</button>'
-  + '<button type="button" class="ph-btn ghost" data-act="ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.6 3.5 2 4.9 5.5 5.5C14 9.1 12.6 10.5 12 14c-.6-3.5-2-4.9-5.5-5.5C10 8 11.4 6.5 12 3z"/><path d="M18.5 14.5c.3 1.6.9 2.2 2.5 2.5-1.6.3-2.2.9-2.5 2.5-.3-1.6-.9-2.2-2.5-2.5 1.6-.3 2.2-.9 2.5-2.5z"/></svg>AI 配图</button>'
+  + '<button type="button" class="ph-btn ghost" data-act="ai" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.6 3.5 2 4.9 5.5 5.5C14 9.1 12.6 10.5 12 14c-.6-3.5-2-4.9-5.5-5.5C10 8 11.4 6.5 12 3z"/><path d="M18.5 14.5c.3 1.6.9 2.2 2.5 2.5-1.6.3-2.2.9-2.5 2.5-.3-1.6-.9-2.2-2.5-2.5 1.6-.3 2.2-.9 2.5-2.5z"/></svg>AI 配图</button>'
   + '</span>'
   + '<span class="ph-hint">或将图片拖拽到此</span>'
   + '<span class="ph-note">支持 JPG / PNG / WebP · 单张 ≤ 5MB</span>';
@@ -5662,7 +5662,7 @@ async function aiImgGenerate(){
       if(!r.ok) throw new Error('生图服务响应异常 '+r.status);
       const d = await r.json();
       const imgs = d.images || d.urls || d.data || [];
-      if(!imgs.length) throw new Error('生图返回为空');
+      if(!imgs.length){ console.warn('生图返回结构：', d); throw new Error(d.error ? d.error : '生图返回为空'); }
       aiQuotaUse();
       renderAiImgTiles(results, imgs.slice(0,2));
     }catch(e){
