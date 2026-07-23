@@ -5382,11 +5382,13 @@ function submitFeedback(){
 document.getElementById('ofModal').addEventListener('click', e=>{
   if(e.target===e.currentTarget) closeOF();
 });
-/* ═══ CloudBase AI · OpenAI 兼容网关（使用套餐内 Token）═══
-   Base URL / API Key 来自 控制台 → AI → 在 AI 工具中使用 → 使用套餐内 Token
-   直接 fetch，无需 SDK；留空则用本地排版引擎 */
-const AI_BASE_URL = "https://zili-d6g45h4os6ddf10f0.api.tcloudbasegateway.com/v1/ai/cloudbase";
-const AI_API_KEY  = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjlkMWRjMzFlLWI0ZDAtNDQ4Yi1hNzZmLWIwY2M2M2Q4MTQ5OCJ9.eyJpc3MiOiJodHRwczovL3ppbGktZDZnNDVoNG9zNmRkZjEwZjAuYXAtc2hhbmdoYWkudGNiLWFwaS50ZW5jZW50Y2xvdWRhcGkuY29tIiwic3ViIjoiYW5vbiIsImF1ZCI6InppbGktZDZnNDVoNG9zNmRkZjEwZjAiLCJleHAiOjQwODc4NDk3MzEsImlhdCI6MTc4NDE2NjUzMSwibm9uY2UiOiJPV3RNUU9nZVJfdVY4NlRVTnFfTmFBIiwiYXRfaGFzaCI6Ik9XdE1RT2dlUl91Vjg2VFVOcV9OYUEiLCJuYW1lIjoiQW5vbnltb3VzIiwic2NvcGUiOiJhbm9ueW1vdXMiLCJwcm9qZWN0X2lkIjoiemlsaS1kNmc0NWg0b3M2ZGRmMTBmMCIsIm1ldGEiOnsicGxhdGZvcm0iOiJQdWJsaXNoYWJsZUtleSJ9LCJ1c2VyX3R5cGUiOiIiLCJjbGllbnRfdHlwZSI6ImNsaWVudF91c2VyIiwiaXNfc3lzdGVtX2FkbWluIjpmYWxzZX0.mGrWZqb9gm8oXEcZiUA557cdS1hl04TQlzx6mEJRPEqdhzg1lPLEHGsQzEu3fX-g8L9-mIro2SvIlHQfQeIkZ-kzI56kOGhpdmtc8PrVNuMVejOi5IY4H0yvCINdurkMHwH8IJ99yBQM_zPEeTIpfqm3Cp2N_SWUW4iM6wNlr2dIdKFjbQVX35N7HzSm3bkNMjKsdWppt0f0hwO660-WP3LlVZbBYIpeMXbf9PO5rTC14Ho2zXEc_KA1iwZusYlQFMuZGqFUrU0IkDXlbvgGfvWacMfVLkaT6T0R9XBEtkCHhXq4BkSApNvsuMsfdWK5b9YNJPTXGLPhdggL8EXheg";   // Publishable Key（客户端专用，权限受限，可公开）
+/* ═══ AI 云函数中转（HTTP 网关）═══
+   浏览器 → 你的云函数 aiFormat → 服务端调 hy3 → 返回 {text}
+   AI_ENDPOINT = 云函数的 HTTP 访问路径（控制台 → HTTP 网关 里查看/绑定）
+   留空则用本地排版引擎 */
+const AI_ENDPOINT = "https://zili-d6g45h4os6ddf10f0-1454473137.ap-shanghai.app.tcloudbase.com/aiFormat";
+const AI_MODEL = "hy3";
+const CB_ACCESS_KEY = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjlkMWRjMzFlLWI0ZDAtNDQ4Yi1hNzZmLWIwY2M2M2Q4MTQ5OCJ9.eyJpc3MiOiJodHRwczovL3ppbGktZDZnNDVoNG9zNmRkZjEwZjAuYXAtc2hhbmdoYWkudGNiLWFwaS50ZW5jZW50Y2xvdWRhcGkuY29tIiwic3ViIjoiYW5vbiIsImF1ZCI6InppbGktZDZnNDVoNG9zNmRkZjEwZjAiLCJleHAiOjQwODc4NDk3MzEsImlhdCI6MTc4NDE2NjUzMSwibm9uY2UiOiJPV3RNUU9nZVJfdVY4NlRVTnFfTmFBIiwiYXRfaGFzaCI6Ik9XdE1RT2dlUl91Vjg2VFVOcV9OYUEiLCJuYW1lIjoiQW5vbnltb3VzIiwic2NvcGUiOiJhbm9ueW1vdXMiLCJwcm9qZWN0X2lkIjoiemlsaS1kNmc0NWg0b3M2ZGRmMTBmMCIsIm1ldGEiOnsicGxhdGZvcm0iOiJQdWJsaXNoYWJsZUtleSJ9LCJ1c2VyX3R5cGUiOiIiLCJjbGllbnRfdHlwZSI6ImNsaWVudF91c2VyIiwiaXNfc3lzdGVtX2FkbWluIjpmYWxzZX0.mGrWZqb9gm8oXEcZiUA557cdS1hl04TQlzx6mEJRPEqdhzg1lPLEHGsQzEu3fX-g8L9-mIro2SvIlHQfQeIkZ-kzI56kOGhpdmtc8PrVNuMVejOi5IY4H0yvCINdurkMHwH8IJ99yBQM_zPEeTIpfqm3Cp2N_SWUW4iM6wNlr2dIdKFjbQVX35N7HzSm3bkNMjKsdWppt0f0hwO660-WP3LlVZbBYIpeMXbf9PO5rTC14Ho2zXEc_KA1iwZusYlQFMuZGqFUrU0IkDXlbvgGfvWacMfVLkaT6T0R9XBEtkCHhXq4BkSApNvsuMsfdWK5b9YNJPTXGLPhdggL8EXheg";   // Publishable Key（客户端专用，权限受限，可公开）
 /* AI 模型：平台已开通的模型名。可选：hy3 · hy3-preview · qwen3.5-flash */
 const AI_MODEL = "hy3";
 /* 问题反馈接口（可留空，与 AI 无关） */
@@ -5398,23 +5400,22 @@ const AI_DAILY_LIMIT = 10;
 function aiQuotaLeft(){ const d=new Date().toISOString().slice(0,10); const q=lsGet('zili.aiquota')||{}; return q.d===d ? Math.max(0, AI_DAILY_LIMIT-(q.n||0)) : AI_DAILY_LIMIT; }
 function aiQuotaUse(){ const d=new Date().toISOString().slice(0,10); const q=lsGet('zili.aiquota')||{}; lsSet('zili.aiquota', {d, n:(q.d===d?(q.n||0):0)+1}); }
 /* 统一模型调用：预览环境用内置接口，线上走 CloudBase Web SDK；超时/失败自动降级本地引擎 */
-function aiTimeout(p, ms){ return Promise.race([p, new Promise((_,rej)=>setTimeout(()=>rej(new Error('AI 超时')), ms||30000))]); }
-function aiConfigured(){ return !!(AI_BASE_URL && AI_API_KEY); }
+function aiTimeout(p, ms){ return Promise.race([p, new Promise((_,rej)=>setTimeout(()=>rej(new Error('AI 超时')), ms||60000))]); }
+function aiConfigured(){ return !!AI_ENDPOINT; }
 async function callModel(ask){
   if(window.claude && window.claude.complete){
     return await aiTimeout(window.claude.complete({ model:'claude-sonnet-4-5', max_tokens:6000, messages:[{ role:'user', content:ask }] }));
   }
   if(aiConfigured()){
-    const url = AI_BASE_URL.replace(/\/+$/,'') + '/chat/completions';
-    const r = await aiTimeout(fetch(url, {
+    const r = await aiTimeout(fetch(AI_ENDPOINT, {
       method:'POST',
-      headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer '+AI_API_KEY },
-      body: JSON.stringify({ model:AI_MODEL, messages:[{ role:'user', content:ask }], temperature:0.7 })
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ prompt:ask, model:AI_MODEL })
     }));
-    if(!r.ok) throw new Error('AI 网关响应异常 '+r.status);
+    if(!r.ok) throw new Error('AI 云函数响应异常 '+r.status);
     const d = await r.json();
-    const t = d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
-    if(!t) throw new Error('智能返回为空');
+    const t = d && (d.text || (d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content));
+    if(!t) throw new Error(d && d.error ? ('AI 服务：'+d.error) : '智能返回为空');
     return t;
   }
   throw new Error('智能引擎不可用');
@@ -5558,7 +5559,7 @@ function finishAiLayout(obj){
   cleanTextNodes(canvas);
   const imgMsg = injectTplImagery(obj.tpl);
   syncArtVars(); updateMeta(); closeOF(); markEdited(); saveWork();
-  toast('AI 排版完成：已套用「'+TPLS[obj.tpl].name+'」'+(obj.reason?' · '+obj.reason:'')+(imgMsg?' · '+imgMsg:''));
+  toast('✦ AI（'+AI_MODEL+'）排版完成：已套用「'+TPLS[obj.tpl].name+'」'+(obj.reason?' · '+obj.reason:'')+(imgMsg?' · '+imgMsg:''));
 }
 
 async function applyOF(){
@@ -5608,7 +5609,8 @@ async function applyOF(){
       document.getElementById('ofModal').classList.remove('busy');
       go.disabled=false; go.textContent=orig;
       aiFellBack = true;
-      toast('AI 排版暂不可用，已用本地引擎生成最优方案', true);
+      console.error('[ZILI AI] 调用失败：', e);
+      toast('AI 调用失败：'+((e&&e.message)||e)+'（已用本地引擎）', true);
     }
   }
   if(ofFromHome){ if(!curId) curId=uid(); openEditor(); }
@@ -5666,7 +5668,7 @@ async function applyOF(){
   if(s.quote) parts.push(s.quote+' 处引用');
   const msg = ['「'+result.profile.typeName+'」内容', '识别 '+(parts.join('、')||'正文段落'), tplMsg, styleMsg, imgMsg]
     .filter(Boolean).join(' · ');
-  toast('智能排版完成：'+msg);
+  toast('本地引擎排版完成：'+msg);
 }
 
 /* 图片占位：本地上传 / 图库选择 + 拖拽提示 + 格式大小说明 */
