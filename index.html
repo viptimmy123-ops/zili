@@ -2868,22 +2868,60 @@ input[type=color]{width:24px;height:24px;border:1px solid var(--line);border-rad
 
 
 <!-- 一键排版弹窗 -->
+<style>
+.of-lbl{font-size:11px;letter-spacing:2px;color:#9AA0A6;margin:0 0 9px;font-weight:600}
+.of-chips{display:flex;flex-wrap:wrap;gap:8px}
+.of-chips button{font:inherit;font-size:13px;padding:7px 15px;border:1px solid #E6E4DF;border-radius:99px;background:#fff;color:#5A5F66;cursor:pointer;transition:border-color .15s,color .15s,background .15s}
+.of-chips button:hover{border-color:#C9C6BF;color:#1B1B1F}
+.of-chips button.on{background:#1B1B1F;border-color:#1B1B1F;color:#fff}
+.of-opts{display:flex;flex-wrap:wrap;gap:8px}
+.of-opts label{display:flex;align-items:center;gap:8px;font-size:13px;color:#5A5F66;cursor:pointer;user-select:none;padding:8px 13px;border:1px solid #E6E4DF;border-radius:10px;transition:border-color .15s,color .15s,background .15s}
+.of-opts label:has(input:checked){border-color:#1B1B1F;color:#1B1B1F;background:#FAFAF8}
+.of-opts input{width:15px;height:15px;accent-color:#1B1B1F;cursor:pointer}
+.of-airow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid #E6E4DF;border-radius:12px;background:#FAFAF8}
+.of-airow.off{opacity:.55}
+.of-airow.off label{cursor:not-allowed}
+.of-airow label{display:flex;align-items:center;gap:9px;font-size:13.5px;color:#1B1B1F;font-weight:600;cursor:pointer;user-select:none}
+.of-airow input{width:16px;height:16px;accent-color:#1B1B1F;cursor:pointer}
+.of-aistat{margin:0;font-size:12px;color:#9AA0A6;letter-spacing:.3px;text-align:right;max-width:56%;line-height:1.5}
+.of-aistat.ok{color:#2E7D5B}
+</style>
 <div class="modal-mask" id="ofModal" hidden>
-  <div class="modal" role="dialog" aria-label="一键排版" style="width:min(500px,94vw)">
+  <div class="modal" role="dialog" aria-label="一键排版" style="width:min(500px,94vw);max-height:calc(100vh - 40px);overflow-y:auto">
     <div class="modal-t">一键排版</div>
-    <p class="modal-d" style="margin:10px 0 16px">粘贴或上传原文，AI 自动分析内容并套用最合适的模板与排版。</p>
+    <p class="modal-d" style="margin:8px 0 14px">粘贴原文，自动识别标题、章节、金句、清单等结构，套用模板一键成稿。</p>
     <textarea id="ofText" spellcheck="false" placeholder="把原文粘贴到这里，或点「上传文档」（支持 txt / md / html / docx）…"></textarea>
-    <input type="checkbox" id="ofAiChk" checked hidden>
-    <input type="checkbox" id="ofTitleChk" checked hidden>
-    <input type="checkbox" id="ofTplChk" checked hidden>
-    <input type="checkbox" id="ofNumChk" checked hidden>
-    <input type="checkbox" id="ofEndChk" checked hidden>
-    <div style="display:none;align-items:center;justify-content:space-between;gap:12px;margin-top:16px">
-      <label style="display:flex;align-items:center;gap:9px;font-size:13px;color:#5A5F66;cursor:pointer;user-select:none">
-        <input type="checkbox" id="ofImgAiChk" style="width:15px;height:15px;accent-color:#1B1B1F;cursor:pointer">
-        <span>✦ AI 智能配图</span>
-      </label>
-      <p id="ofQuotaHint" style="margin:0;font-size:12px;color:#9AA0A6;letter-spacing:.5px;white-space:nowrap"></p>
+    <input type="checkbox" id="ofImgAiChk" hidden>
+
+    <div style="margin-top:16px">
+      <div class="of-lbl">模板</div>
+      <div id="ofTplChips" class="of-chips">
+        <button type="button" data-tpl="auto" class="on" onclick="ofPickTpl(this)">✦ 智能匹配</button>
+        <button type="button" data-tpl="blank" onclick="ofPickTpl(this)">留白</button>
+        <button type="button" data-tpl="warm" onclick="ofPickTpl(this)">温度</button>
+        <button type="button" data-tpl="editorial" onclick="ofPickTpl(this)">编辑</button>
+        <button type="button" data-tpl="night" onclick="ofPickTpl(this)">夜读</button>
+        <button type="button" data-tpl="business" onclick="ofPickTpl(this)">商务</button>
+        <button type="button" data-tpl="oriental" onclick="ofPickTpl(this)">东方</button>
+      </div>
+    </div>
+
+    <div style="margin-top:16px">
+      <div class="of-lbl">排版选项</div>
+      <div class="of-opts">
+        <label><input type="checkbox" id="ofTitleChk" checked><span>提取首行为标题</span></label>
+        <label><input type="checkbox" id="ofNumChk" checked><span>章节自动编号</span></label>
+        <label><input type="checkbox" id="ofEndChk" checked><span>末尾加关注卡</span></label>
+      </div>
+    </div>
+
+    <div style="margin-top:16px">
+      <div class="of-lbl">智能引擎</div>
+      <div class="of-airow" id="ofAiRow">
+        <label><input type="checkbox" id="ofAiChk"><span>✦ AI 深度理解<span style="font-weight:400;color:#9AA0A6">（可选）</span></span></label>
+        <p class="of-aistat" id="ofAiStat">检测中…</p>
+      </div>
+      <p id="ofQuotaHint" style="margin:8px 2px 0;font-size:12px;color:#9AA0A6;letter-spacing:.3px"></p>
     </div>
     <div class="modal-row" style="margin-top:18px">
       <input type="file" id="ofFile" hidden accept=".txt,.md,.markdown,.html,.htm,.docx" onchange="ofFileChosen(event)">
@@ -3104,16 +3142,26 @@ blank: ()=>`
 <div class="opener"><p><span class="op-k">独白 · MONOLOGUE</span></p><p class="op-t">人生最好的状态，<br>是不慌不忙</p><p class="op-m">字里 · 第 128 篇 · 写给愿意慢下来的你</p></div>
 <p>三十岁以后，我做过最勇敢的一个决定——允许自己慢下来。</p>
 <div class="jinju">慢，不是效率的反义词；<br>它是把日子，过成生活。</div>
-<p>过去我总担心，一旦停下来就会被什么追上。后来才懂，被追上的从来不是我，是心里那个不肯松手的自己。</p>
+<p>过去我总担心，一旦停下来就会被什么追上。后来才懂，被追上的从来不是我，是心里那个不肯松手的自己。这篇独白，写给同样在赶路、却忘了为什么出发的你。</p>
 <figure><div class="ph-img uploaded"><img loading="lazy" decoding="async" src="${ZREAL.w.blank}" onerror="zimgFallback(this,'w','blank')"></div><figcaption>清晨六点的窗台，光比人先醒</figcaption></figure>
 <h2>一杯没喝完的咖啡</h2>
 <p>上周二早上，我端着咖啡冲向地铁，在楼道里洒了一半。站在原地的三秒钟，我忽然意识到：我已经很久，没有把一杯咖啡完整地喝完了。</p>
-<p>不是没有时间，是不敢停。</p>
+<p>不是没有时间，是不敢停。仿佛一旦坐下来把它喝完，就会错过什么、落后于谁。可到底是谁在追我？我说不上来。</p>
+<p>那天我把洒了的咖啡擦干净，重新倒了一杯，靠在窗边喝完了它。迟到了七分钟。世界没有因此塌下来。</p>
 <p class="div-dot">✦ ✦ ✦</p>
+<h2>被追赶的错觉</h2>
+<p>后来我认真想过「被追上」这件事。我们害怕停下，是因为把人生想象成一场赛跑——有起跑线，有名次，有被超越的耻辱。</p>
+<blockquote><p>可如果这是一场没有终点的赛跑，那么领先，又有什么意义？</p></blockquote>
+<p>真正让我焦虑的，从来不是别人跑得多快，而是我不敢停下来问自己：我到底想去哪里。慢，逼我面对这个问题。</p>
+<figure><div class="ph-img uploaded"><img loading="lazy" decoding="async" src="${ZREAL.w.blank}" onerror="zimgFallback(this,'w','blank')"></div><figcaption>把速度调慢，风景才显影</figcaption></figure>
 <h2>练习「什么都不做」</h2>
-<p>我给自己定了个小功课：每天留十五分钟，什么都不做。不看手机，不复盘，不计划，就坐着。第一周浑身难受，第三周，我竟听见了自己。</p>
-<blockquote><p>我们害怕空白，是因为空白里，会浮出真实。</p></blockquote>
-<p>慢发生的时候没有仪式感。它只是安静地，把你还给你。</p>
+<p>我给自己定了个小功课：每天留十五分钟，什么都不做。不看手机，不复盘，不计划，就坐着。第一周浑身难受，第二周开始走神，第三周，我竟听见了自己。</p>
+<p>原来脑子里一直有个声音在说话，只是平时被消息、任务和短视频盖住了。安静下来它才浮上来——有时是提醒，有时是抱怨，更多时候，只是想被听见。</p>
+<div class="jinju2"><span class="qm">"</span><p>我们害怕空白，是因为空白里，会浮出真实。</p></div>
+<h2>慢，是一种能力</h2>
+<p>我不再把「慢」当成需要被原谅的缺点。能慢下来的人，往往是心里有底的人——他知道什么重要，所以不慌着抓住全部。</p>
+<p>慢发生的时候没有仪式感。它只是安静地，把你还给你。一杯喝完的咖啡，一个走完的神，一段没有目的的散步——这些不产出任何东西的时刻，恰恰是你还活着、而不只是在运转的证据。</p>
+<blockquote><p>愿你也有勇气，在所有人都加速的时候，为自己按下一次暂停。</p></blockquote>
 <div class="endcard"><p class="ec-t">读完了？</p><p class="ec-s">把这篇转给一个同样需要安静的人 · 独白 每周一更</p></div>`,
 
 warm: ()=>`
@@ -3127,8 +3175,13 @@ warm: ()=>`
 <h2>糖包经济学</h2>
 <p>后来我常去那家早餐铺。豆浆两块，糖包一块五，十年没涨过价。老板娘说：「涨了价，老街坊就不好意思天天来了。」</p>
 <div class="card"><p class="card-t">她的账本</p><p>她算的不是一单的利润，是一条街的人情。这笔账，商学院不教。</p></div>
+<p>我问她这样不亏吗，她摆摆手：「靠老主顾，赚的不多，但稳。人心比利润长久。」这句话我记了很久——它不只是生意经，也是做人的道理。</p>
+<div class="imgcard"><div class="ph-img uploaded"><img loading="lazy" decoding="async" src="${ZREAL.w.warm}" onerror="zimgFallback(this,'w','warm')"></div><div class="ic-body"><p class="ic-t">早餐铺的窗口</p><p>白雾气里，一屉包子刚上屉。温暖总是先从胃里升起来的。</p></div></div>
+<blockquote><p>被温柔对待过的人，会更愿意温柔地对待别人。</p></blockquote>
 <div class="note"><p class="note-t">写周记的小提示</p><p>把每天的小确幸记一句，一周后回看，会攒下一整片温柔。</p></div>
-<p>世界不总是温柔的，但总有人在不动声色地温柔着。也祝你今天，有一个属于自己的糖包时刻。</p>
+<h2>本周的三个糖包时刻</h2>
+<div class="checks"><p><span class="ck">✓</span>周一：同事默默把我桌上歪掉的日历摆正了</p><p><span class="ck">✓</span>周三：早餐铺的糖包</p><p><span class="ck">✓</span>周五：地铁上有人让座给抱孩子的妈妈，全车厢都松了口气</p></div>
+<p>世界不总是温柔的，但总有人在不动声色地温柔着。把这些瞬间攒起来，就像在心里存了一罐糖——日子苦的时候，舍得拿出来一块。也祝你今天，有一个属于自己的糖包时刻。</p>
 <div class="endcard"><p class="ec-t">今天也要好好生活</p><p class="ec-s">下周同一时间，我们继续交换温暖</p></div>`,
 
 editorial: ()=>`
@@ -5167,6 +5220,31 @@ function autoFormat(raw){ return autoLayout(raw,{}).html; }
 
 /* ═══ 一键排版弹窗 ═══ */
 let ofFromHome = false;
+/* 模板选择：'auto' = 智能匹配，否则强制指定模板键 */
+let ofTplPick = 'auto';
+function ofPickTpl(btn){
+  document.querySelectorAll('#ofTplChips button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  ofTplPick = btn.dataset.tpl;
+}
+/* 诚实呈现智能引擎状态：预览环境有内置 AI；线上取决于云函数是否连通 */
+function ofSetAi(available, statusText, isConnected){
+  const row=document.getElementById('ofAiRow'), chk=document.getElementById('ofAiChk'), stat=document.getElementById('ofAiStat');
+  if(!row) return;
+  chk.checked = available; chk.disabled = !available;
+  row.classList.toggle('off', !available);
+  stat.textContent = statusText;
+  stat.classList.toggle('ok', !!isConnected);
+}
+function ofProbeAi(){
+  if(window.claude && window.claude.complete){
+    ofSetAi(true, '已连接 · 逐句理解全文语义', true);
+  } else if(aiConfigured()){
+    ofSetAi(true, '云端 AI（'+AI_MODEL+'）· 失败自动切本地引擎', false);
+  } else {
+    ofSetAi(false, '本地引擎 · 无需联网，效果稳定一致', false);
+  }
+}
 /* 复制文章 → 一键直达排版设计 */
 async function pasteAndLayout(fromHome){
   let txt='';
@@ -5273,8 +5351,12 @@ function openOF(fromHome){
   ofFromHome = !!fromHome;
   document.getElementById('ofText').value='';
   document.getElementById('ofModal').hidden=false;
+  ofTplPick='auto';
+  document.querySelectorAll('#ofTplChips button').forEach(b=>b.classList.toggle('on', b.dataset.tpl==='auto'));
+  ['ofTitleChk','ofNumChk','ofEndChk'].forEach(id=>{ var c=document.getElementById(id); if(c) c.checked=true; });
+  ofProbeAi();
   var qh=document.getElementById('ofQuotaHint');
-  if(qh) qh.textContent='今日剩余 '+aiQuotaLeft()+' / '+AI_DAILY_LIMIT+' 次';
+  if(qh) qh.textContent='今日剩余 '+aiQuotaLeft()+' / '+AI_DAILY_LIMIT+' 次 AI 深度理解';
   document.getElementById('ofText').focus();
 }
 let ofBusy=false;
@@ -5300,30 +5382,38 @@ function submitFeedback(){
 document.getElementById('ofModal').addEventListener('click', e=>{
   if(e.target===e.currentTarget) closeOF();
 });
-/* ═══ 智能服务地址：部署云函数并开启「HTTP 访问」后，把访问地址粘到这里 ═══
-   形如 https://xxxx.service.tcloudbase.com/aiFormat ；留空则自动使用本地排版引擎 */
-const AI_ENDPOINT = "https://zili-d6g45h4os6ddf10f0-1454473137.ap-shanghai.app.tcloudbase.com/aiFormat";
-const FEEDBACK_ENDPOINT = "https://zili-d6g45h4os6ddf10f0-1454473137.ap-shanghai.app.tcloudbase.com/feedback";
-/* ═══ AI 生图：复用 aiFormat 云函数，请求体带 type:"image" ═══
-   请求：POST JSON { type:"image", prompt:"画面描述", width:1024, height:576, n:2 }
-   返回：JSON { images:[ "https://..." 或 "data:image/...;base64,..." , ... ] }
-   留空则回退到外部免费生图服务 */
-const AI_IMG_ENDPOINT = AI_ENDPOINT;
+/* ═══ CloudBase AI · OpenAI 兼容网关（使用套餐内 Token）═══
+   Base URL / API Key 来自 控制台 → AI → 在 AI 工具中使用 → 使用套餐内 Token
+   直接 fetch，无需 SDK；留空则用本地排版引擎 */
+const AI_BASE_URL = "https://zili-d6g45h4os6ddf10f0.api.tcloudbasegateway.com/v1/ai/cloudbase";
+const AI_API_KEY  = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjlkMWRjMzFlLWI0ZDAtNDQ4Yi1hNzZmLWIwY2M2M2Q4MTQ5OCJ9.eyJpc3MiOiJodHRwczovL3ppbGktZDZnNDVoNG9zNmRkZjEwZjAuYXAtc2hhbmdoYWkudGNiLWFwaS50ZW5jZW50Y2xvdWRhcGkuY29tIiwic3ViIjoiYW5vbiIsImF1ZCI6InppbGktZDZnNDVoNG9zNmRkZjEwZjAiLCJleHAiOjQwODc4NDk3MzEsImlhdCI6MTc4NDE2NjUzMSwibm9uY2UiOiJPV3RNUU9nZVJfdVY4NlRVTnFfTmFBIiwiYXRfaGFzaCI6Ik9XdE1RT2dlUl91Vjg2VFVOcV9OYUEiLCJuYW1lIjoiQW5vbnltb3VzIiwic2NvcGUiOiJhbm9ueW1vdXMiLCJwcm9qZWN0X2lkIjoiemlsaS1kNmc0NWg0b3M2ZGRmMTBmMCIsIm1ldGEiOnsicGxhdGZvcm0iOiJQdWJsaXNoYWJsZUtleSJ9LCJ1c2VyX3R5cGUiOiIiLCJjbGllbnRfdHlwZSI6ImNsaWVudF91c2VyIiwiaXNfc3lzdGVtX2FkbWluIjpmYWxzZX0.mGrWZqb9gm8oXEcZiUA557cdS1hl04TQlzx6mEJRPEqdhzg1lPLEHGsQzEu3fX-g8L9-mIro2SvIlHQfQeIkZ-kzI56kOGhpdmtc8PrVNuMVejOi5IY4H0yvCINdurkMHwH8IJ99yBQM_zPEeTIpfqm3Cp2N_SWUW4iM6wNlr2dIdKFjbQVX35N7HzSm3bkNMjKsdWppt0f0hwO660-WP3LlVZbBYIpeMXbf9PO5rTC14Ho2zXEc_KA1iwZusYlQFMuZGqFUrU0IkDXlbvgGfvWacMfVLkaT6T0R9XBEtkCHhXq4BkSApNvsuMsfdWK5b9YNJPTXGLPhdggL8EXheg";   // Publishable Key（客户端专用，权限受限，可公开）
+/* AI 模型：平台已开通的模型名。可选：hy3 · hy3-preview · qwen3.5-flash */
+const AI_MODEL = "hy3";
+/* 问题反馈接口（可留空，与 AI 无关） */
+const FEEDBACK_ENDPOINT = "";
+/* AI 生图：暂关闭（回退外部免费服务） */
+const AI_IMG_ENDPOINT = "";
 /* ═══ AI 排版每日限额（本地记账，防止滥用云函数额度） ═══ */
 const AI_DAILY_LIMIT = 10;
 function aiQuotaLeft(){ const d=new Date().toISOString().slice(0,10); const q=lsGet('zili.aiquota')||{}; return q.d===d ? Math.max(0, AI_DAILY_LIMIT-(q.n||0)) : AI_DAILY_LIMIT; }
 function aiQuotaUse(){ const d=new Date().toISOString().slice(0,10); const q=lsGet('zili.aiquota')||{}; lsSet('zili.aiquota', {d, n:(q.d===d?(q.n||0):0)+1}); }
-/* 统一模型调用：预览环境用内置接口，线上用云函数中转；15 秒超时自动降级本地引擎 */
+/* 统一模型调用：预览环境用内置接口，线上走 CloudBase Web SDK；超时/失败自动降级本地引擎 */
 function aiTimeout(p, ms){ return Promise.race([p, new Promise((_,rej)=>setTimeout(()=>rej(new Error('AI 超时')), ms||30000))]); }
+function aiConfigured(){ return !!(AI_BASE_URL && AI_API_KEY); }
 async function callModel(ask){
   if(window.claude && window.claude.complete){
     return await aiTimeout(window.claude.complete({ model:'claude-sonnet-4-5', max_tokens:6000, messages:[{ role:'user', content:ask }] }));
   }
-  if(AI_ENDPOINT){
-    const r = await aiTimeout(fetch(AI_ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ prompt:ask }) }));
-    if(!r.ok) throw new Error('智能服务响应异常 '+r.status);
+  if(aiConfigured()){
+    const url = AI_BASE_URL.replace(/\/+$/,'') + '/chat/completions';
+    const r = await aiTimeout(fetch(url, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer '+AI_API_KEY },
+      body: JSON.stringify({ model:AI_MODEL, messages:[{ role:'user', content:ask }], temperature:0.7 })
+    }));
+    if(!r.ok) throw new Error('AI 网关响应异常 '+r.status);
     const d = await r.json();
-    const t = d.text || (d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content) || '';
+    const t = d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
     if(!t) throw new Error('智能返回为空');
     return t;
   }
@@ -5499,6 +5589,7 @@ async function applyOF(){
         aiRaw = lines0.slice(1).join('\n');
       }
       const obj = await aiLayout(aiRaw);
+      if(ofTplPick!=='auto' && TPLS[ofTplPick]) obj.tpl = ofTplPick;
       if(ofFromHome){ if(!curId) curId=uid(); openEditor(); }
       if(!aiTitle && obj.title && document.getElementById('ofTitleChk').checked && !document.getElementById('artTitle').value.trim()){
         aiTitle = panguSpacing(punctNormalize(String(obj.title).slice(0,40)));
@@ -5534,7 +5625,10 @@ async function applyOF(){
   });
   /* 智能匹配模板（AI 失败兑底时强制开启，保证给出最优本地方案） */
   let tplMsg='';
-  if((document.getElementById('ofTplChk').checked || aiFellBack) && result.tpl.score>0){
+  if(ofTplPick!=='auto' && TPLS[ofTplPick]){
+    applyTpl(ofTplPick);
+    tplMsg = '已套用「'+TPLS[ofTplPick].name+'」';
+  } else if(result.tpl.score>0){
     applyTpl(result.tpl.key);
     tplMsg = '已套用「'+TPLS[result.tpl.key].name+'」';
   } else if(ofFromHome){
@@ -5572,7 +5666,7 @@ async function applyOF(){
   if(s.quote) parts.push(s.quote+' 处引用');
   const msg = ['「'+result.profile.typeName+'」内容', '识别 '+(parts.join('、')||'正文段落'), tplMsg, styleMsg, imgMsg]
     .filter(Boolean).join(' · ');
-  toast('AI 排版完成：'+msg);
+  toast('智能排版完成：'+msg);
 }
 
 /* 图片占位：本地上传 / 图库选择 + 拖拽提示 + 格式大小说明 */
