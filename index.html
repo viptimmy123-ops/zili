@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="zili-version" content="1.14.0">
+<meta name="zili-version" content="1.15.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -33,7 +33,7 @@ var _hmt = _hmt || [];
 <meta property="og:url" content="https://typeoai.cn/">
 <link rel="canonical" href="https://typeoai.cn/">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"字里 ZILI","applicationCategory":"DesignApplication","operatingSystem":"Web","description":"自媒体文章排版工具：24 套精选模板，AI 一键排版，一键复制成稿","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"}}</script>
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20fill='%23171717'/%3E%3Cg%20transform='translate(15,15)%20scale(0.7)'%20fill='none'%20stroke='%23EBE8E1'%20stroke-width='13'%20stroke-linecap='square'%3E%3Cpath%20d='M28%2030H86L58%2045'/%3E%3Cpath%20d='M42%2055L14%2070H72'/%3E%3C/g%3E%3C/svg%3E"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" href="favicon.ico" sizes="any"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20fill='%23171717'/%3E%3Cg%20transform='translate(15,15)%20scale(0.7)'%20fill='none'%20stroke='%23EBE8E1'%20stroke-width='13'%20stroke-linecap='square'%3E%3Cpath%20d='M28%2030H86L58%2045'/%3E%3Cpath%20d='M42%2055L14%2070H72'/%3E%3C/g%3E%3C/svg%3E"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1.15.0"><link rel="icon" href="favicon.ico?v=1.15.0" sizes="any"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.15.0"><link rel="manifest" href="site.webmanifest?v=1.15.0">
 <style>
 /* ═══════════════ 字里品牌 Tokens ═══════════════ */
 :root{
@@ -296,6 +296,27 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 .da-pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--green);color:#55684C;background:#fff;border-radius:99px;padding:9px 16px;font-size:12px;font-weight:600;letter-spacing:1.5px;white-space:nowrap;box-shadow:0 8px 22px rgba(124,148,115,.18)}
 .da-pill .ai-spark{font-size:13px;line-height:1}
 @media(max-width:880px){.demo-grid{grid-template-columns:1fr}.demo-arrow{display:none}}
+.demo-ws{background:#fff;border:1px solid #E4E6E8;border-radius:14px;box-shadow:0 18px 50px rgba(23,23,23,.07);overflow:hidden}
+.dws-top{display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:1px solid #EDEFF1;font-size:11.5px;letter-spacing:1.5px;color:var(--ink3)}
+.dws-top .sp{flex:1}
+.dws-top .dws-imp{color:var(--ink2)}
+.dws-top .dws-copy{background:var(--ink);color:#F7F5F2;border-radius:99px;padding:6px 15px;font-size:11.5px;letter-spacing:1.5px}
+.dws-body{display:grid;grid-template-columns:1fr 330px;align-items:stretch}
+.dws-main{display:flex;flex-direction:column;min-width:0;border-right:1px solid #EDEFF1}
+.dws-toolbar{display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:1px solid #F1F2F4;font-size:12px;color:var(--ink2)}
+.dws-toolbar .tseg{border:1px solid #E1E3E5;border-radius:6px;padding:4px 10px;font-size:11.5px;letter-spacing:1px;color:var(--ink2)}
+.dws-toolbar .tico{width:24px;text-align:center;color:#9A9EA3}
+.dws-toolbar .tico.b{font-weight:800;color:var(--ink)}
+.dws-toolbar .tico.i{font-style:italic}
+.dws-toolbar .tico.u{text-decoration:underline}
+.dws-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 18px;border-top:1px solid #F1F2F4;font-size:11.5px;letter-spacing:1px;color:var(--ink3)}
+.dws-foot .fbtns{display:flex;align-items:center;gap:8px}
+.dws-foot .fb{border:1px solid #E1E3E5;border-radius:99px;padding:5px 14px;color:var(--ink2);font-size:11.5px}
+.dws-foot .fb.on{border-color:var(--green);color:#55684C}
+.dws-prev{display:flex;flex-direction:column;align-items:center;gap:12px;padding:26px 22px 30px;background:#F7F8F9}
+.dws-prev .live-label{font-size:10.5px;letter-spacing:3px;color:#9A9EA3}
+.dws-prev .demo-frame{--pv-s:.6 !important;box-shadow:0 16px 40px rgba(0,0,0,.12)}
+@media(max-width:880px){.dws-body{grid-template-columns:1fr}.dws-main{border-right:none;border-bottom:1px solid #EDEFF1}}
 .demo-pane{background:#fff;border:1px solid #E1E3E5;border-radius:8px;display:flex;flex-direction:column;overflow:hidden}
 /* 左：草稿纸感 右：手机成稿 */
 .demo-pane.demo-raw{background:#FAFAF8;border:1px dashed #CBCFD3;border-radius:12px;align-self:stretch}
@@ -312,7 +333,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 }
 .demo-pane .dp-h em{font-style:normal;font-size:10px;letter-spacing:1.5px;color:#B3B7BB}
 #demoRaw{
-  width:100%;height:440px;border:none;background:#fff;padding:22px 24px;
+  width:100%;height:430px;border:none;background:#fff;padding:26px 28px;
   font-family:inherit;font-size:13px;line-height:2;color:var(--ink2);outline:none;resize:none;
 }
 .demo-go{
@@ -980,6 +1001,7 @@ details.qa-item p{font-size:12.5px;color:var(--ink2);line-height:2;letter-spacin
 .doc-hr{border:none;border-top:1px solid var(--line);margin:22px 0 26px}
 #canvas{outline:none;min-height:280px}
 #canvas:empty::before{content:'输入正文，或从左侧组件库插入…';color:#BFBCB4}
+html.lang-en #canvas:empty::before{content:'Type your text, or insert a component from the left…'}
 
 /* 右栏：样式 / 全局 */
 .tpl-pick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
@@ -2691,22 +2713,38 @@ input[type=color]{width:24px;height:24px;border:1px solid var(--line);border-rad
     <div class="demo-bar">
       <div class="demo-tpl-mini" id="demoTplPick"></div>
     </div>
-    <div class="demo-grid">
-      <div class="demo-pane demo-raw">
-        <div class="dp-h"><span>原文 · RAW TEXT</span><em>可随意修改</em></div>
-        <textarea id="demoRaw" spellcheck="false" oninput="clearTimeout(window.__demoT);window.__demoT=setTimeout(runDemo,400)"></textarea>
+    <div class="demo-ws">
+      <div class="dws-top">
+        <span>← 首页</span>
+        <span class="sp"></span>
+        <span class="dws-imp">⇲ 导入</span>
+        <span class="dws-copy">一键复制</span>
       </div>
-      <div class="demo-arrow"></div>
-      <div class="demo-pane demo-result">
-        <div class="phone-frame demo-frame">
-          <div class="phone-screen">
-            <div class="p-status"><span class="p-island"></span></div>
-            <div class="p-scroll">
-              <div class="p-title" id="demoTitle"></div>
-              <div class="p-meta">字里 · 刚刚</div>
-              <div id="demoScope" class="tpl-liubai"><div class="art" id="demoOut"></div></div>
+      <div class="dws-body">
+        <div class="dws-main">
+          <div class="dws-toolbar">
+            <span class="tseg">正文</span><span class="tseg">16</span>
+            <span class="tico b">B</span><span class="tico i">I</span><span class="tico u">U</span>
+            <span class="tico">A</span><span class="tico">▦</span><span class="tico">≣</span><span class="tico">⋯</span>
+          </div>
+          <textarea id="demoRaw" spellcheck="false" oninput="clearTimeout(window.__demoT);window.__demoT=setTimeout(runDemo,400)"></textarea>
+          <div class="dws-foot">
+            <span>可随意修改</span>
+            <span class="fbtns"><span class="fb on">预览已开启</span><span class="fb">保存草稿</span></span>
+          </div>
+        </div>
+        <div class="dws-prev">
+          <div class="phone-frame demo-frame">
+            <div class="phone-screen">
+              <div class="p-status"><span class="p-island"></span></div>
+              <div class="p-scroll">
+                <div class="p-title" id="demoTitle"></div>
+                <div class="p-meta">字里 · 刚刚</div>
+                <div id="demoScope" class="tpl-liubai"><div class="art" id="demoOut"></div></div>
+              </div>
             </div>
           </div>
+          <span class="live-label">实时预览 · 手机</span>
         </div>
       </div>
     </div>
@@ -8356,6 +8394,491 @@ html.lang-en .tpl-grid button, html.lang-en .tpl-thumbs button, html.lang-en .st
 /* ═══ 语言切换 i18n（中 ⇄ EN）═══ */
 (function(){
 const D = {
+  /* ── v1.14 更新公告 ── */
+  '本次更新带来以下改进':'What this release brings',
+  '模板库扩充至 24 套：新增素纸 / 空 / 和纸 / 行间四套日式极简模板；全部范本加长为 6 章节完整成稿，混搭 13 种标题组件（色块、圆号、大数字、荧光笔、主副标题等）；修复亮主色模板下色块标题与表头的文字可读性。':'The library now holds 24 templates, with four Japanese-minimal additions — Plain Paper, Void, Washi and Interline. Every sample is now a full six-chapter article, mixing 13 heading styles (color band, circled number, big numeral, highlighter, title + subtitle and more). Also fixed: heading bands and table headers stayed readable on light-accent templates.',
+  '模板库扩充至 24 套：新增「素纸 / 空 / 和纸 / 行间」四套日式极简模板':'Library grows to 24 templates: four Japanese-minimal additions — Plain Paper / Void / Washi / Interline',
+  '范本全面加长：每套模板都是 6 章节完整成稿，含图位、卡片、清单、数据、时间线':'Longer samples: every template is a complete six-chapter article with image slots, cards, checklists, stats and timelines',
+  '标题组件铺满全库：色块 / 圆号 / 大数字 / 荧光笔 / 主副标题等 13 种样式各有归属':'Heading styles across the library: color band / circled number / big numeral / highlighter / title + subtitle — 13 styles, each with a home',
+  '可读性修复：亮主色模板下的色块标题、编号徽标与表头文字不再发白':'Readability fix: heading bands, number badges and table headers no longer wash out on light-accent templates',
+  /* ── 素系模板（新增） ── */
+  '素系':'Plain','素系模板':'Plain',
+  /* ── 范本正文 · 素纸 / 空 ── */
+  '城市观察':'CITY NOTES','在便利店门口':'Fifteen minutes','坐下来的十五分钟':'on a convenience-store chair','字里手记 · 第 12 期':'ZILI NOTES · No. 12',
+  '我开始留意那些在便利店门口坐着的人。他们不进店，也不急着走，就着一杯热的东西，把十五分钟花在一张塑料椅上。':'I started noticing the people who sit outside convenience stores. They do not go in, and they are not in a hurry to leave — just something warm to drink, and fifteen minutes on a plastic chair.',
+  '这件事我留意了大半年，从春天到入冬。同一条街，同一排椅子，坐的人几乎每天都换，姿势却出奇地一致——身体往后靠，手机朝下扣着，眼睛没有落点。':'I watched for most of a year, spring into winter. Same street, same row of chairs, a different person almost every day — yet the posture is oddly identical: leaning back, phone face down, eyes resting on nothing.',
+  '城市留给人的缝隙':'The gaps a city leaves',
+  '一座城市体面不体面，看的不是天际线，而是它愿不愿意留出一些不产生消费的角落。台阶、花坛边、便利店门口的两把椅子，都是缝隙。':'Whether a city is decent is not read from its skyline but from whether it leaves corners that generate no spending. A step, the edge of a planter, two chairs outside a shop — all of them gaps.',
+  '缝隙不需要设计得很好，它只需要被允许存在。一旦被清理干净，人就只剩下两个状态：在路上，或者在消费。':'A gap does not need to be well designed; it only needs to be allowed to exist. Once it is cleared away, people are left with two states only: in transit, or spending.',
+  '城市的温度，藏在那些不要求你花钱的地方。':'A city\u2019s warmth hides in the places that ask nothing of your wallet.',
+  '晚上十点，第三个坐下来的人':'10 p.m., the third person to sit down','坐下来的人在做什么':'What the sitters are doing',
+  '大多数人什么也没做。有人在等一个不急的电话结束，有人在把外套上的雨水抖干，有人只是不想这么快回到那间需要维持表情的房子里。':'Most of them do nothing. One waits out a call that is not urgent, one shakes rain off a coat, one simply does not want to go back so soon to a flat where an expression must be maintained.',
+  '下班路上的第一次停顿':'The first pause on the way home','接完一个长电话之后':'After a long phone call','回家之前，先做一会儿谁也不是的人':'Being nobody for a while before going home',
+  '十五分钟能做什么':'What fifteen minutes buys','不够看完一集剧，但足够松一口气':'Not enough for an episode, enough for one long exhale',
+  '不够看完一集剧，不够走完一段路，但足够把一天里最紧的那口气松开。':'Not enough for an episode, not enough for a walk — but enough to release the tightest breath of the day.',
+  '这是城市里最便宜的休息':'It is the cheapest rest a city offers','，也是最容易被拿走的那一种。':', and the kind most easily taken away.',
+  '分钟 · 一次不产生消费的停留':'minutes · one stop that spends nothing',
+  '椅子是谁放的':'Who put the chairs there',
+  '问过一位值夜的店员。他说椅子是店里自己搬出来的，没写在任何规范里，也没人来管。「有人坐着，店门口就不像深夜。」':'I asked a clerk on the night shift. The store put them out itself, he said — in no rulebook, and nobody minds. "With someone sitting there, the doorway does not feel like midnight."',
+  '他后来补了一句':'Then he added','「反正我们也要开一整夜，多两把椅子不费电。」':'"We are open all night anyway. Two extra chairs do not cost electricity."',
+  '把缝隙留下来':'Leave the gap',
+  '我没有什么主张要提。只是希望下次经过时，那两把椅子还在，并且上面坐着一个不打算买东西的人。':'I have no argument to make. I only hope that next time I pass, the two chairs are still there — with someone on them who has no intention of buying anything.',
+  '下期见':'See you next time','字里手记 · 每周记录一件小事':'ZILI NOTES · One small thing, weekly',
+  '先把事情做完，':'Finish it first,','再把它做好':'then make it good','工作方法笔记 · 第 6 则':'METHOD NOTES · No. 6',
+  '拖延很少来自懒，多半来自想一次做对。把标准前置到第一稿，等于给自己设了一道过不去的门。':'Procrastination rarely comes from laziness; mostly it comes from wanting to get it right in one pass. Front-loading the standard onto the first draft sets up a door you cannot get through.',
+  '过去三年我改了一件事：把「做完」和「做好」拆成两个互不打扰的动作。交付速度快了一倍，返工反而更少。':'One thing I changed over three years: split "finish" and "perfect" into two actions that never interrupt each other. Delivery doubled in speed, and rework went down.',
+  '第一稿只负责存在':'The first draft only has to exist',
+  '第一稿的唯一任务是把想法从脑子里搬出来。它不需要漂亮，只需要完整——有开头，有结论，中间的坑先用一句话占位。':'Its only job is to move the idea out of your head. It need not be pretty, only complete — an opening, a conclusion, and one-line placeholders for the holes in between.',
+  '完成度先于精致度。':'Completeness before polish.','关键':'Key',
+  '把修改变成独立的一件事':'Make revising its own act',
+  '写和改用的是两套脑子，混在一起就会互相打断。':'Writing and revising use two different brains; mixed together they interrupt each other.',
+  '写的时候不回头，改的时候不心软。':'Do not look back while writing; do not go soft while cutting.',
+  '写：只往前，不删':'Write: forward only, no deleting','改：先砍段落，再抠句子':'Revise: cut paragraphs first, then sentences','停：读一遍能顺下来就交付':'Stop: if one read-through flows, ship it',
+  '给每一稿设一个闹钟':'Set a timer for every draft',
+  '没有时限的初稿会一直「差一点」。我的做法是给第一稿定 45 分钟，到点就交给第二个动作，哪怕它还很粗。':'A draft with no deadline stays "almost there" forever. I give the first draft 45 minutes, then hand it to the second action however rough it is.',
+  '第一稿投入占比 · 40%':'Share of effort in draft one · 40%',
+  '怎么判断可以停手':'How to know you can stop',
+  '不是「没有可以改的地方」，而是「再改也不会改变结论」。到这一步就该发出去，剩下的交给真实反馈。':'Not "nothing left to change" but "more changes will not change the conclusion". At that point send it and let real feedback do the rest.',
+  '一个反直觉的经验':'A counterintuitive finding',
+  '把交付时间提前一天，质量通常不降反升——因为你被迫放弃了那些没有收益的打磨。':'Move delivery a day earlier and quality usually rises, because you are forced to drop the polishing that pays nothing.',
+  '返工不是失败':'Rework is not failure',
+  '返工只说明你比昨天更清楚要什么。真正的浪费是：迟迟不交，然后一次性错到底。':'Rework only means you know what you want better than yesterday. The real waste is delivering late and being wrong all at once.',
+  '下一篇写「怎么砍」':'Next: how to cut','工作方法笔记 · 每周一则':'METHOD NOTES · One note a week',
+  /* ── 范本正文 · 和纸 / 行间 ── */
+  '节气':'SOLAR TERM','立秋这天':'What to eat','该吃一碗什么':'on the first day of autumn','四时食记 · 立秋':'FOUR SEASONS TABLE · Start of Autumn',
+  '立秋不是转凉的开始，是暑气最后一次逞强。老话讲「啃秋」，其实是给夏天一个体面的收尾。':'The start of autumn is not when the cool arrives; it is the last swagger of the heat. The old custom of "biting autumn" is really a dignified sendoff for summer.',
+  '南方的立秋常常比大暑更闷。这一天吃什么，讲的不是节令的准确，而是心里有个交代。':'In the south this day is often muggier than midsummer. What you eat is less about seasonal accuracy than about settling something inside.',
+  '壹':'I','先吃瓜，再喝汤':'Melon first, then soup',
+  '西瓜在这一天有名分，叫「啃秋」。吃完瓜再煨一锅汤，凉热之间，身体自己会挑。':'Watermelon has a title on this day: "biting autumn". Eat the melon, then simmer a pot of soup — between the cool and the hot, the body chooses for itself.',
+  '四时有序，人才有分寸。':'When the seasons keep order, people keep measure.',
+  '立秋 · 一碗莲藕排骨汤':'Start of autumn · a bowl of lotus root and pork rib soup',
+  '汤要慢，火要小':'Slow soup, small flame',
+  '藕切滚刀，排骨冷水下锅，撇净浮沫之后转小火。':'Cut the lotus root on the roll, start the ribs in cold water, skim the foam, then drop to a low flame.',
+  '一个半小时，不掀盖。':'An hour and a half. Do not lift the lid.','掀一次盖，汤就少一分厚。':'Every lift costs the soup some of its body.',
+  '配料很短':'A short ingredient list',
+  '排骨半斤、莲藕一节、姜三片、盐最后放。不要放八角，会盖掉藕的甜。':'Half a jin of ribs, one section of lotus root, three slices of ginger, salt last. No star anise — it buries the root\u2019s sweetness.',
+  '秋天的第一口甜':'Autumn\u2019s first sweetness','藕比肉更值得等':'The root is worth the wait more than the meat',
+  '藕在汤里久了会发粉，咬下去先是糯，然后回甘。这一口甜不是糖给的，是时间给的。':'Long in the pot the root turns floury — first glutinous on the bite, then sweet on the return. That sweetness is not from sugar; it is from time.',
+  '肆':'IV','立秋三候':'The three pentads of early autumn',
+  '一候':'First','凉风至：早晚的风开始有了边。':'Cool winds arrive: morning and evening air gains an edge.',
+  '二候':'Second','白露降：清晨草叶上开始挂水。':'White dew descends: water begins to hang on the morning grass.',
+  '三候':'Third','寒蝉鸣：叫声变短，也变低。':'Cold cicadas sing: the calls grow shorter and lower.',
+  '这一天的规矩不必太多':'The day needs few rules',
+  '吃瓜，喝汤，早点睡。节气从来不是任务清单，它只是提醒你：又过了一段日子。':'Eat melon, drink soup, sleep early. A solar term was never a to-do list; it only reminds you that another stretch of days has passed.',
+  '处暑再见':'See you at End of Heat','四时食记 · 十五天一封':'FOUR SEASONS TABLE · One letter every fifteen days',
+  '读书':'READING','为什么我们记不住':'Why we cannot remember','读过的书':'the books we have read','阅读随笔 · 第 8 篇':'READING ESSAYS · No. 8',
+  '读完就忘，不是记性问题。多数时候我们只是把眼睛滑过了字，并没有和作者交换任何东西。':'Forgetting a book is not a memory problem. Most of the time our eyes only slid across the words; nothing was exchanged with the author.',
+  '我统计过自己去年读完的三十二本书。能完整说出主张的，不到十本；能说出一处反驳的，只有四本。':'I counted the thirty-two books I finished last year. I could state the argument of fewer than ten; I could state one objection to only four.',
+  '阅读是一场对话':'Reading is a conversation',
+  '好的读者会在页边反驳、追问、举反例。停下来的次数，决定了这本书最终留下多少。':'A good reader argues in the margin, presses further, offers counterexamples. How often you stop decides how much of the book stays.',
+  '读得慢的人，记得久。':'Those who read slowly remember long.',
+  '划线为什么没用':'Why highlighting does nothing',
+  '划线是把判断推迟到未来的动作。它给人「我处理过了」的错觉，实际上什么也没发生。':'Highlighting postpones judgment to some future self. It grants the illusion of having processed something while nothing happened.',
+  '替代方案':'Instead',
+  '把想划的那句抄下来，后面强行接一句自己的话——同意、怀疑或举例，随便哪种。':'Copy the sentence out, then force one of your own after it — agreement, doubt or an example, any of them.',
+  '合上书之后的十分钟':'The ten minutes after closing the book',
+  '用自己的话复述一遍，比划任何重点都有用。':'Retelling it in your own words beats marking any passage.','说不出来，就是没读懂。':'If you cannot say it, you did not understand it.',
+  '作者的主张是什么':'What is the author claiming','他用什么证据支撑':'What evidence supports it','我要把它用在哪里':'Where will I use it',
+  '读不下去要不要硬读':'Should you push through a book you cannot read','大多数时候，答案是不要':'Most of the time, no',
+  '一本书读不下去，可能是它不好，也可能是你还没到那个位置。放回架上不是失败，是留一个以后再见的机会。':'A book you cannot get through may be bad, or you may not be at the place where it lands. Back on the shelf is not failure; it leaves room to meet again.',
+  '本 · 去年读完，真正记住十本':'books finished last year · ten truly remembered',
+  '读书笔记不需要好看':'Reading notes need not be pretty',
+  '它只需要在半年后能被你自己读懂。格式、排版、系统都不重要，重要的是当时那句「我不同意」有没有写下来。':'They only need to make sense to you six months later. Format, layout and systems do not matter; whether you wrote down "I disagree" at the time does.',
+  '下篇聊「怎么选书」':'Next: how to choose books','阅读随笔 · 每两周一封':'READING ESSAYS · One letter every two weeks',
+  /* ── 范本正文 · 鎏金 / 铅字 ── */
+  '鎏金专栏':'GILT COLUMN','高端品牌的沉默溢价':'The silent premium of luxury brands','字里 · 第 41 篇文章 · 阅读 5 分钟':'ZILI · No. 41 · 5 min read',
+  '为什么有人愿意为一只包多付二十倍的价格？答案不在皮革里，在沉默里。真正的高端品牌，几乎从不解释自己。':'Why would anyone pay twenty times more for a bag? The answer is not in the leather but in the silence. Truly high-end brands almost never explain themselves.',
+  '橱窗越空，标价越贵':'The emptier the window, the higher the price','稀缺不是没有，是不给':'Scarcity is not absence; it is withholding',
+  '某顶奢品牌的经典款包永远「缺货」，但它的产能其实足够。人为限制供给，让「买到」本身成为身份的证明——这是高端定价的第一条铁律：':'A certain house keeps its classic bag permanently "out of stock" though capacity is ample. Restricting supply makes the act of acquiring it proof of standing — the first iron law of luxury pricing:',
+  '卖的不是商品，是入场资格':'what is sold is not a product but admission',
+  '头部奢侈品毛利倍数':'Gross margin multiple, top luxury','打折即贬值的品牌溢价':'Brand premium where a discount means devaluation','顶奢品牌的电商促销次数':'Online promotions run by top houses',
+  '贰':'II','沉默是最贵的广告':'Silence is the most expensive advertising',
+  '大众品牌在解释「为什么值」，高端品牌在筛选「谁配拥有」。前者的广告越来越吵，后者的门店越来越静。':'Mass brands explain why they are worth it; luxury brands screen who deserves them. The former get louder in advertising, the latter quieter in store.',
+  '越是不需要说服你的品牌，越贵。':'The less a brand needs to persuade you, the more it costs.',
+  '「奢侈品的本质，是把阶层差异变成审美差异。」—— 某品牌前创意总监':'"Luxury turns differences of class into differences of taste." — a former creative director',
+  '静奢是一套识别系统':'Quiet luxury is a recognition system',
+  '没有 logo 的大衣、不挂标签的门店、需要预约的楼层——沉默本身就是筛选装置。看得懂的人自会走进来，看不懂的人被温柔地劝退。':'A coat with no logo, a store with no signage, a floor that requires an appointment — silence itself is the filter. Those who read it walk in; those who do not are gently turned away.',
+  '静奢的语言':'The language of quiet luxury',
+  '剪裁、面料、五金的重量——所有识别信号都收进只有近距离才看得见的细节里。':'Cut, cloth, the weight of the hardware — every signal is folded into details visible only up close.',
+  '价格是一种叙事':'Price is a narrative',
+  '涨价需要故事，降价只能沉默。顶级品牌每年小幅提价，配的是原料、工时与传承的叙事；一旦公开打折，叙事崩塌的速度远快于库存清空。':'Raising prices needs a story; cutting them can only be done in silence. Top houses lift prices slightly each year on a narrative of materials, hours and heritage; once they discount publicly, the narrative collapses faster than the stock clears.',
+  'Q：涨价会不会赶走老客户？':'Q: Do price rises drive away long-time customers?',
+  'A：会赶走价格敏感的那一部分，而这恰恰是高端品牌想要的结果——客群纯度比客群规模更值钱。':'A: They drive away the price-sensitive part, which is exactly the intent — purity of clientele is worth more than size of clientele.',
+  '伍':'V','普通人能学什么':'What the rest of us can borrow','三条可迁移的定价心法':'Three transferable pricing principles',
+  '① 不做「性价比」叙事，做「专属感」叙事；② 减少 SKU，让选择本身变简单；③ 涨价要有仪式，降价只能悄悄。':'① Tell an exclusivity story, not a value-for-money story; ② cut SKUs so choosing is simple; ③ raise prices with ceremony, lower them quietly.',
+  '你未必做奢侈品生意，但每个人都在经营自己的「品牌」。少解释，多筛选——这条心法，对个人同样成立。':'You may not sell luxury, but everyone runs a personal brand. Explain less, filter more — the principle holds for individuals too.',
+  '一个反面案例':'A cautionary case',
+  '某国产高端线三年内做了七次大促，客单价从四千掉到一千二。产品没变差，叙事先崩了：当消费者学会等折扣，品牌就再也回不到原价。':'One domestic premium line ran seven big promotions in three years; average spend fell from 4,000 to 1,200. The product did not get worse — the narrative broke first. Once shoppers learn to wait for a discount, the brand never returns to full price.',
+  '每周五 · 拆解一个高端生意的底层逻辑':'Every Friday · one premium business, taken apart',
+  '街角旧书店的最后十年':'The last ten years of the corner bookshop','第 1024 号 · 丙午年七月刊':'NO. 1024 · July issue',
+  '巷口那家旧书店开了三十一年。老板姓陈，头发白了一半，算账仍用一把上了年纪的算盘。上个月，房东第三次上调了租金。':'The secondhand bookshop at the alley mouth has been open thirty-one years. Mr. Chen, half his hair now white, still does the accounts on an elderly abacus. Last month the landlord raised the rent for the third time.',
+  '下午四点，书店只有一位客人':'Four in the afternoon: one customer in the shop','一间书店的账本':'A bookshop\u2019s ledger',
+  '陈老板给我算过一笔账：一天卖出十几本旧书，流水两三百块，付完房租所剩无几。「靠书挣不到钱了，」他说，「但总得有个地方，让人蹲下来翻一下午书。」':'Mr. Chen ran the numbers for me: a dozen-odd books a day, two or three hundred yuan of turnover, almost nothing left after rent. "There is no money in books now," he said, "but there has to be somewhere a person can crouch down and read all afternoon."',
+  '书店不挣钱，挣的是一条街的体面。':'A bookshop does not earn money; it earns a street its dignity.',
+  '谁还在买旧书':'Who still buys used books',
+  '常客有三种人：找绝版教材的学生、淘老画册的设计师，和只是来坐坐的街坊。':'The regulars are three kinds: students after out-of-print textbooks, designers hunting old art books, and neighbors who just come to sit.',
+  '旧书店的真正商品，是「偶遇」':'What a used bookshop really sells is the chance encounter','——算法给不了的那种。':' — the kind no algorithm can hand you.',
+  '「网上什么书都有，但你得先知道书名。旧书店不一样，是书来找你。」—— 常客李先生':'"Online has every book, but you must know its title first. In a used bookshop the book finds you." — Mr. Li, a regular',
+  '细节':'Detail','三十一年的算盘':'An abacus of thirty-one years','按计算器手会快，心会慌':'A calculator is faster in the hand and more anxious in the chest',
+  '收银台上的算盘比店里大多数书都老。珠子被磨得发亮，陈老板说这声音是他的定心丸。':'The abacus on the counter is older than most of the books. The beads are polished bright; Mr. Chen says the sound settles him.',
+  '一条街的减法':'A street doing subtraction',
+  '同一条巷子里，裁缝铺去年关了，修表的搬去了城郊，配钥匙的换成了奶茶。':'In the same alley the tailor closed last year, the watch repairer moved to the outskirts, the key cutter became a bubble-tea shop.',
+  '消失从来不是一夜之间':'Disappearance never happens overnight','，是一年少一家，直到某天你发现无处可修、无处可翻。':' — one shop a year, until one day there is nowhere to mend anything and nowhere to browse.',
+  '一九九五':'1995','书店开张，隔壁是粮油店。':'The shop opens; a grain and oil store next door.',
+  '二〇〇八':'2008','第一次因租金压力缩小一半面积。':'Rent pressure halves the floor space for the first time.',
+  '二〇一九':'2019','加了微信群，老客帮着找书。':'A group chat starts; regulars help track books down.',
+  '今年七月':'This July','租金第三次上调。':'The rent rises a third time.',
+  '十年之后':'Ten years on',
+  '问他还能开多久，陈老板拨了两下算盘，笑而不答。走的时候，他往我包里塞了本一九八六年的《城市笔记》：「拿去，写你们的文章用得上。」':'Asked how long he can keep going, Mr. Chen flicks the abacus twice and smiles without answering. On my way out he slips a 1986 copy of City Notes into my bag: "Take it. You will find a use for it in your writing."',
+  '还这本书的债':'Repaying the book',
+  '这篇文章，算是还他这本书的债。如果你也路过这样的店，进去待十分钟，买一本你未必读完的书——它们需要的不是同情，是客人。':'This piece is my repayment. If you pass a shop like this, go in for ten minutes and buy a book you may never finish — what they need is not sympathy but customers.',
+  '记录正在消失的街道 · 双周更新':'Recording the streets that are vanishing · Biweekly',
+  /* ── 范本正文 · 奶芙 / 先锋 / 雅仕 ── */
+  '甜度报告':'SWEETNESS REPORT','这家开在居民楼里的甜品店，值得绕路':'A dessert shop inside an apartment block, worth the detour','字里 · 探店 Vol.18':'ZILI · Food Finds Vol. 18',
+  '朋友圈刷到第三次，我终于去了这家藏在老小区二楼的甜品店。没有招牌，导航都会迟疑的那种。结论先说：':'Third time it crossed my feed, I finally went to this dessert shop on the second floor of an old estate. No sign; even the map app hesitates. Verdict first:',
+  '值得专程绕路':'worth a detour of its own',
+  '招牌巴斯克，下午三点就售罄':'The signature Basque — sold out by three',
+  '先说招牌':'The signature first',
+  '巴斯克蛋糕是每天限量的，芝士味厚但不齁，中心还是半流动的。配的不是咖啡，是一小杯冷萃乌龙——老板娘说甜的东西要配「干净的茶」。':'The Basque cheesecake is limited daily — rich but never cloying, still molten at the center. It comes not with coffee but a small cold-brew oolong; sweet things want clean tea, the owner says.',
+  '好的甜品不腻人，像好的关系。':'Good dessert never cloys — like a good relationship.',
+  '点单攻略':'What to order','三样就够，别贪心':'Three items is plenty, do not get greedy',
+  '巴斯克蛋糕：必点，去晚了没有':'Basque cheesecake: essential, gone if you are late','柠檬玛德琳：适合不嗜甜的人':'Lemon madeleine: for those who dislike sweet','冷萃乌龙：解腻神器，别换美式':'Cold-brew oolong: cuts the richness, do not swap for an americano',
+  '柠檬玛德琳 · 出炉十分钟内最好吃':'Lemon madeleine · best within ten minutes of the oven',
+  '怎么去，什么时候去':'How and when to go','小贴士':'Tip',
+  '工作日下午两点前人最少；店里只有六个座位，周末建议打包去楼下公园吃。':'Weekdays before two are quietest. There are only six seats — on weekends take it away to the park downstairs.',
+  '个座位 · 所以它永远不会变成网红店':'seats · which is why it will never go viral',
+  '价格与分量':'Price and portions',
+  '人均四十上下，切块不小气。比商场店便宜三成，但用的是同一档的乳制品——省下的是租金，不是原料。':'Around forty per person, with generous slices — thirty percent cheaper than mall shops on the same grade of dairy. What is saved is rent, not ingredients.',
+  '这次点的':'What we ordered',
+  '巴斯克一块 32 元、柠檬玛德琳两只 18 元、冷萃乌龙 22 元。两人分食刚好，不撑。':'One Basque 32 yuan, two lemon madeleines 18, cold-brew oolong 22. Right for two to share without feeling full.',
+  '为什么想写它':'Why write it up','辞职学两年烘焙的设计师':'A designer who quit and studied baking for two years',
+  '老板娘以前是设计师，辞职学了两年烘焙。问她后悔吗，她指了指墙上的手写菜单：「以前改方案，现在改配方，都是把一件事改到自己满意为止。」':'The owner used to be a designer; she left and spent two years learning to bake. Any regrets? She pointed at the handwritten menu: "I used to revise proposals, now I revise recipes. Either way you revise until you are satisfied."',
+  '这句话，比蛋糕还值这一趟。':'That line was worth the trip more than the cake.',
+  '下次想试的':'For next time',
+  '菜单角落写着「周五限定 · 咸奶油可可」，只做十份。已经和朋友约好了，下周五下午一点在楼下集合。':'A corner of the menu reads "Friday only · salted-cream cacao", ten portions a day. A friend and I are meeting downstairs at one next Friday.',
+  '每月两家 · 只写真的好吃的':'Two places a month · only the genuinely good ones',
+  'NEWS · 官方发布':'NEWS · OFFICIAL','三个数字，':'Three numbers','读懂我们的上半年':'that explain our first half','品牌官微 · 2026 年中盘点':'OFFICIAL CHANNEL · Mid-2026 review',
+  '过去六个月，团队交付了创立以来最密集的一轮产品迭代。这篇盘点不讲情怀，只讲结果——用数字说话。':'Over six months the team shipped the densest round of product iteration since founding. This review skips the sentiment and reports results — in numbers.',
+  '覆盖国家与地区':'Countries and regions covered','50万':'500K','累计服务用户':'Users served to date','系统全年可用性':'System availability, full year',
+  '六月 · 新一代产品线下发布现场':'June · the new generation launch, on site',
+  '产品：一次彻底的换代':'Product: a clean generational break',
+  '核心产品完成第三代架构升级，体积缩小 40%，性能提升一倍。':'The core product completed its third-generation architecture upgrade: 40% smaller, twice the performance.',
+  '所有老用户免费升级':'Free upgrades for every existing customer','——这是我们对「长期主义」的理解。':' — that is what we mean by playing the long game.',
+  '不做参数的堆砌者，只做问题的终结者。':'We do not stack up specifications; we end problems.',
+  '市场：从出海到扎根':'Market: from exporting to taking root',
+  '海外营收占比首次过半。区别于「卖完就走」，我们在三个重点市场建立了本地服务团队，48 小时响应从承诺变成日常。':'Overseas revenue passed half for the first time. Rather than selling and leaving, we built local service teams in three key markets, turning 48-hour response from a promise into routine.',
+  '合作伙伴说':'A partner says',
+  '「他们是少数会把售后工程师派到屋顶上的供应商。」—— 海外渠道商 R. Holguín':'"One of the few suppliers who will send a service engineer onto the roof." — R. Holguín, overseas distributor',
+  '把响应写进流程':'Response, written into process',
+  '三地备件仓同步上线，常用备件本地化率提升到八成。工单不再跨时区流转，':'Three regional parts depots went live and local availability of common spares reached 80%. Tickets no longer cross time zones, and ',
+  '平均闭环时间从 61 小时降到 22 小时':'average resolution time fell from 61 hours to 22',
+  '工单 48 小时闭环率 · 92%':'Tickets resolved within 48 hours · 92%','海外本地服务团队 · 现场交付':'Local service teams abroad · on-site delivery',
+  '团队：40 个新同事':'Team: 40 new colleagues',
+  '上半年研发团队扩编 40 人，硬件、算法、供应链全线加强。下半年校招通道已开启，':'R&D grew by 40 in the first half, strengthening hardware, algorithms and supply chain. Campus hiring for the second half is open — ',
+  '后台回复「加入我们」':'reply "join us" for details','查看全部岗位。':' to see every role.',
+  '硬件与结构':'Hardware and mechanics','新增 14 人，支撑第四代产品的整机预研。':'14 hires supporting pre-development of the fourth-generation unit.',
+  '算法与数据':'Algorithms and data','新增 18 人，自研模型进入量产验证阶段。':'18 hires; our in-house models entered production validation.',
+  '下半年三件事':'Three things for the second half',
+  '九月：第四代产品发布，同步开放开发者接口':'September: fourth-generation launch, with developer APIs opening alongside',
+  '十月：第二座海外服务中心投用':'October: second overseas service center enters operation',
+  '十二月：完整年报与用户共创计划公布':'December: full annual report and the co-creation program announced',
+  '致谢':'Thanks','被数字挡住的那些人':'The people the numbers hide',
+  '数字只记得结果，记不得凌晨改版的工程师、连轴出差的售后、以及愿意等我们把事做对的客户。这一页留给他们。':'Numbers remember outcomes, not the engineers revising at 3 a.m., the service staff on back-to-back trips, or the customers willing to wait while we got it right. This page is theirs.',
+  '下半年，继续交付':'Second half: we keep shipping','关注官微 · 第一时间获取发布信息':'Follow the official channel for launch news first',
+  '与世界共赴新程':'Onward, with the world','2026 年度盘点 · 上篇':'2026 ANNUAL REVIEW · Part One',
+  '时序更替，梦想前行。过去一年，我们在专业主义的道路上继续深耕，也在更大的坐标系里校准自己的位置。谨以此篇，与同行者共享。':'Seasons turn and ambitions move on. Over the past year we went deeper on professionalism and recalibrated our position on a larger map. This review is offered to those who walk with us.',
+  '投资数说':'Investment in numbers','获评入选':'Awards and selections','出海新程':'Going global','陪伴的方法':'How we accompany','年度节点':'Milestones','致同行者':'To fellow travelers',
+  '全年新增投资企业二十余家，其中十五家为专精特新企业，累计陪伴企业总数达':'More than twenty new portfolio companies this year, fifteen of them specialized SMEs, bringing the companies we accompany to ',
+  '220 家':'220','半导体与硬科技':'Semiconductors and hard tech','新能源与材料':'New energy and materials','生物医疗':'Biotech and medical','年度投资组合结构一览':'Portfolio composition for the year',
+  '年内十四家被投企业入选国家级专精特新「小巨人」，五家企业登上行业科技进步奖名录。荣誉属于创业者，我们只是同行的人。':'Fourteen portfolio companies were named national "little giants" this year and five appeared on industry technology-advancement award lists. The honors belong to the founders; we merely walk alongside.',
+  '「资本的价值不在于催促，而在于陪伴企业穿越周期。」—— 年度致投资人信':'"The value of capital is not in hurrying companies but in carrying them through the cycle." — annual letter to investors',
+  '协助六家被投企业完成海外布局：从欧洲的合资建厂，到东南亚的渠道落地。':'We helped six portfolio companies expand abroad, from a European joint-venture plant to distribution in Southeast Asia.',
+  '全球化不再是选择题，而是必答题':'Globalization is no longer optional but compulsory','——我们选择与企业一起作答。':' — and we choose to answer it with our companies.',
+  '欧洲 · 合资工厂奠基':'Europe · groundbreaking of the joint-venture plant',
+  '首个海外制造基地落地，预计明年二季度投产，辐射欧洲六国市场。':'The first overseas manufacturing base is set, with production expected in Q2 next year serving six European markets.',
+  '投后不是服务清单，是长期在场':'Post-investment is not a service list but long-term presence',
+  '我们把投后拆成三件可交付的事：找人、找客户、找下一轮。今年为被投企业推荐关键岗位候选人 260 人次，撮合上下游订单四十余笔。':'We break post-investment into three deliverables: find people, find customers, find the next round. This year we referred 260 candidates for key roles and brokered more than forty supply-chain orders.',
+  '人才：三十位行业资深顾问入库，按需匹配':'Talent: thirty senior industry advisors on call, matched as needed',
+  '市场：季度产业对接会，累计到场企业 180 家':'Market: quarterly industry matchmaking, 180 companies attending in total',
+  '资本：协助十一家企业完成新一轮融资':'Capital: eleven companies helped to close a new round',
+  '三月':'March','新基金完成首关，规模超出预期。':'The new fund held its first close, above target.',
+  '六月':'June','两家被投企业递交上市申请。':'Two portfolio companies filed for listing.',
+  '九月':'September','首个海外服务平台在新加坡设立。':'Our first overseas service platform opened in Singapore.',
+  '十二月':'December','年度产业峰会举办，主题「穿越周期」。':'The annual industry summit convened under the theme "Through the Cycle".',
+  '周期不会因为我们的乐观而缩短，但企业可以因为有人同行而走得更远。感谢创业者的信任，感谢出资人的耐心。':'Cycles do not shorten because we are optimistic, but companies travel further when someone walks with them. Our thanks to founders for their trust and to our investors for their patience.',
+  '以专业致时代，以长期致未来。':'Professionalism for the present; patience for the future.',
+  '2027 · 共赴新程':'2027 · Onward together','下篇「奖项与团队」下周发布 · 敬请期待':'Part Two, Awards and Team, publishes next week',
+  /* ── 范本正文 · 加长段落（留白 / 温度 / 编辑） ── */
+  '人生最好的状态，':'The best state of a life','是不慌不忙':'is unhurried','字里 · 第 128 篇 · 写给愿意慢下来的你':'ZILI · No. 128 · For those willing to slow down',
+  '三十岁以后，我做过最勇敢的一个决定——允许自己慢下来。':'The bravest decision I made after thirty was to allow myself to slow down.',
+  '慢，不是效率的反义词；':'Slow is not the opposite of efficient;','它是把日子，过成生活。':'it is living your days rather than processing them.',
+  '过去我总担心，一旦停下来就会被什么追上。后来才懂，被追上的从来不是我，是心里那个不肯松手的自己。这篇独白，写给同样在赶路、却忘了为什么出发的你。':'I used to fear that stopping would let something catch up with me. Later I understood that what catches up is never the world but the part of me that refuses to let go. This monologue is for you, still rushing, having forgotten why you set out.',
+  '一杯没喝完的咖啡':'A coffee never finished',
+  '上周二早上，我端着咖啡冲向地铁，在楼道里洒了一半。站在原地的三秒钟，我忽然意识到：我已经很久，没有把一杯咖啡完整地喝完了。':'Last Tuesday morning I rushed for the subway with a coffee and spilled half of it in the stairwell. In the three seconds I stood still it struck me: I had not finished a whole cup in a very long time.',
+  '不是没有时间，是不敢停。仿佛一旦坐下来把它喝完，就会错过什么、落后于谁。可到底是谁在追我？我说不上来。':'It was not a lack of time but a fear of stopping — as if sitting down to finish it meant missing something, falling behind someone. But who exactly was chasing me? I could not say.',
+  '那天我把洒了的咖啡擦干净，重新倒了一杯，靠在窗边喝完了它。迟到了七分钟。世界没有因此塌下来。':'That day I wiped up the spill, poured another cup and drank it by the window. I was seven minutes late. The world did not collapse.',
+  '被追赶的错觉':'The illusion of being chased',
+  '后来我认真想过「被追上」这件事。我们害怕停下，是因为把人生想象成一场赛跑——有起跑线，有名次，有被超越的耻辱。':'I thought seriously about being overtaken. We fear stopping because we imagine life as a race — a starting line, a ranking, the shame of being passed.',
+  '可如果这是一场没有终点的赛跑，那么领先，又有什么意义？':'But if the race has no finish line, what does leading even mean?',
+  '真正让我焦虑的，从来不是别人跑得多快，而是我不敢停下来问自己：我到底想去哪里。慢，逼我面对这个问题。':'What actually made me anxious was never how fast others ran, but that I dared not stop and ask where I wanted to go. Slowness forced the question.',
+  '把速度调慢，风景才显影':'Turn the speed down and the view develops',
+  '练习「什么都不做」':'Practicing doing nothing',
+  '我给自己定了个小功课：每天留十五分钟，什么都不做。不看手机，不复盘，不计划，就坐着。第一周浑身难受，第二周开始走神，第三周，我竟听见了自己。':'I set myself a small exercise: fifteen minutes a day doing nothing. No phone, no reviewing, no planning — just sitting. The first week was unbearable, the second week my mind wandered, and by the third week I could hear myself.',
+  '原来脑子里一直有个声音在说话，只是平时被消息、任务和短视频盖住了。安静下来它才浮上来——有时是提醒，有时是抱怨，更多时候，只是想被听见。':'A voice had been talking all along, buried under messages, tasks and short videos. In the quiet it surfaces — sometimes a reminder, sometimes a complaint, most often just wanting to be heard.',
+  '我们害怕空白，是因为空白里，会浮出真实。':'We fear blank space because the truth surfaces in it.',
+  '三件可以今天就试的小事':'Three things to try today',
+  '把一杯饮料从头喝到尾，中间不碰手机':'Finish one drink start to end without touching your phone',
+  '走一段没有目的地的路，只走十分钟':'Walk with no destination, ten minutes is enough',
+  '睡前把明天最重要的一件事写下来，然后停止想它':'Write down tomorrow\u2019s most important thing before bed, then stop thinking about it',
+  '慢，是一种能力':'Slow is a capability',
+  '我不再把「慢」当成需要被原谅的缺点。能慢下来的人，往往是心里有底的人——他知道什么重要，所以不慌着抓住全部。':'I no longer treat slowness as a flaw needing forgiveness. People who can slow down usually know where they stand — they know what matters, so they do not grab at everything.',
+  '慢发生的时候没有仪式感。它只是安静地，把你还给你。一杯喝完的咖啡，一个走完的神，一段没有目的的散步——这些不产出任何东西的时刻，恰恰是你还活着、而不只是在运转的证据。':'Slowness arrives without ceremony. It simply, quietly, returns you to yourself. A finished cup, a completed daydream, an aimless walk — these unproductive moments are the proof that you are living and not merely running.',
+  '写在最后':'In closing',
+  '如果此刻你正在赶路，我不劝你停下。我只想说：等你终于累到必须停的那天，别责怪自己——那不是掉队，那是身体替你做了一个更聪明的决定。':'If you are rushing right now I will not tell you to stop. I only say this: on the day you are finally tired enough that you must, do not blame yourself. That is not falling behind; that is your body making the smarter decision for you.',
+  '愿你也有勇气，在所有人都加速的时候，为自己按下一次暂停。':'May you have the courage to press pause for yourself while everyone else accelerates.',
+  '把这篇转给一个同样需要安静的人 · 独白 每周一更':'Share this with someone who also needs quiet · MONOLOGUE, weekly on Mondays',
+  '平凡日子里的小美好':'Small beauties of ordinary days','字里 · 第 96 篇 · 记一周里最暖的瞬间':'ZILI · No. 96 · The warmest moment of the week',
+  '本周封面 · 六点半的那盏灯':'This week\u2019s cover · the lamp at 6:30','楼下早餐铺的灯，总比我的闹钟先亮。':'The breakfast stall downstairs always lights up before my alarm.',
+  '加班到八点，走到楼下时早餐铺正在收摊。老板娘看见我，停下手里的活：「妹子，还剩两个糖包，拿去吧，不要钱，放到明天就不好吃了。」':'I worked until eight; the stall was closing when I got downstairs. The owner saw me and stopped what she was doing: "Two sugar buns left — take them, no charge. They will not taste good tomorrow."',
+  '生活的甜，都藏在不起眼的缝隙里。':'The sweetness of life hides in unremarkable gaps.',
+  '她递糖包用的是干净的新袋子，还多套了一层——怕烫到我。温柔常常藏在这种「多做一点」里。':'She used a clean new bag and doubled it so I would not be burned. Tenderness often hides in that little bit extra.',
+  '我问她这样不亏吗，她摆摆手：「靠老主顾，赚的不多，但稳。人心比利润长久。」这句话我记了很久——它不只是生意经，也是做人的道理。':'Did she not lose money that way? She waved it off: "Regulars keep it steady, if not rich. Goodwill lasts longer than profit." I remembered that a long time — not just business sense but a way to live.',
+  '早餐铺的一天':'A day at the stall',
+  '四点半':'4:30','和面、发面，店里还没开灯。':'Mixing and proving dough; the lights are still off.',
+  '六点半':'6:30','第一屉上屉，第一位客人是送奶的师傅。':'First tray in the steamer; the first customer is the milk deliveryman.',
+  '八点':'8:00','最忙的四十分钟，队排到路边。':'The busiest forty minutes; the queue reaches the curb.',
+  '八点半':'8:30','收摊，把剩下的分给还没吃早饭的人。':'Closing up, giving leftovers to anyone who has not eaten.',
+  '早餐铺的窗口':'The stall window','白雾气里，一屉包子刚上屉。温暖总是先从胃里升起来的。':'In the white steam a tray of buns has just gone in. Warmth always rises from the stomach first.',
+  '被温柔对待过的人，会更愿意温柔地对待别人。':'People treated gently are more willing to be gentle with others.',
+  '本周的三个糖包时刻':'Three sugar-bun moments this week',
+  '周一：同事默默把我桌上歪掉的日历摆正了':'Monday: a colleague quietly straightened the crooked calendar on my desk',
+  '周三：早餐铺的糖包':'Wednesday: the sugar buns from the stall',
+  '周五：地铁上有人让座给抱孩子的妈妈，全车厢都松了口气':'Friday: someone gave a seat to a mother holding her child and the whole carriage exhaled',
+  '怎么把温柔攒起来':'How to save up tenderness','写周记的小提示':'A tip for weekly notes',
+  '把每天的小确幸记一句，一周后回看，会攒下一整片温柔。别追求写好，只求写下。':'One line a day for each small joy; look back after a week and you will have a whole field of tenderness. Do not write well, just write.',
+  '周 · 这个习惯已经记了将近两年':'weeks · nearly two years of this habit',
+  '写给此刻的你':'For you, right now',
+  '世界不总是温柔的，但总有人在不动声色地温柔着。把这些瞬间攒起来，就像在心里存了一罐糖——日子苦的时候，舍得拿出来一块。也祝你今天，有一个属于自己的糖包时刻。':'The world is not always gentle, but someone is always being quietly gentle. Save these moments like a jar of sugar — on bitter days you can afford a piece. May today bring you a sugar-bun moment of your own.',
+  '为什么我们越来越':'Why we are less and less able','读不完一篇长文':'to finish a long read','字里 · 第 75 篇文章 · 阅读 6 分钟':'ZILI · No. 75 · 6 min read',
+  '现象：我们都读不完了':'The symptom: nobody finishes anything','本质：奖励回路被重新训练':'The mechanism: reward loops retrained','反方的声音':'The counterargument','一个可执行的建议':'One actionable suggestion',
+  '三个月后的数据':'The numbers after three months','被忽略的「启动门槛」':'The ignored startup threshold',
+  '写一段论证、读懂一章推导、听完一次完整的反驳，都有一个不可压缩的最小时长。低于这个门槛，投入的时间不是「少一点效果」，而是':'Writing an argument, following a chapter of derivation, hearing out a full rebuttal — each has an incompressible minimum duration. Below that threshold the time you invest is not less effective; it is ',
+  '完全没有效果':'entirely ineffective',
+  '受访者日均最长不被打断时段 · 17 分钟':'Longest uninterrupted stretch per day, average · 17 minutes',
+  '五、反方的声音':'5. The counterargument',
+  '把手机通知分成三类：即时（仅限真人找你）、每日摘要、彻底关闭。':'Sort notifications into three tiers: instant (real humans only), daily digest, and off.',
+  '先做减法':'Subtract first','把所有非人类发出的通知全部关闭，包括你以为需要的那些。':'Turn off every notification not sent by a human, including the ones you think you need.',
+  '再设时段':'Then set a window','每天固定二十分钟只读长文，手机放在另一个房间。':'Twenty fixed minutes a day for long reads, phone in another room.',
+  '最后记账':'Then keep the ledger','每周记录一次被打断次数，数据比感觉可靠。':'Count interruptions once a week; data beats intuition.',
+  '比任何时间管理课都诚实':'More honest than any time-management course',
+  '我实践三个月后，每天的「被打断次数」从 71 次降到 19 次，读完的长文从每月 2 篇回到 9 篇。方法很朴素，效果不玄学。':'After three months my daily interruptions fell from 71 to 19, and long reads finished went from 2 a month back to 9. Plain method, unmysterious result.',
+  /* ── 范本正文 · 加长段落（夜读 / 商务 / 东方 / 治愈） ── */
+  '深夜，':'Late night','是属于自己的时间':'is the time that is yours','字里 · 第 88 篇文章 · 23:00 开播':'ZILI · No. 88 · On air at 23:00',
+  '凌晨一点的窗':'A window at one in the morning','睡不着的从来不止你一个':'You are never the only one awake',
+  '对面楼的三盏灯':'Three lights in the building across',
+  '一盏在加班，一盏在哄孩子，一盏和你一样，只是还没舍得关掉今天。':'One is working late, one is settling a child, one is like you — simply not ready to switch off today.',
+  '如果你反复失眠':'If the insomnia keeps coming back',
+  '连续两周以上入睡困难、白天严重疲惫，别只靠自己扛。这不是意志力问题，找医生聊聊是很正常的一步。':'Two weeks or more of trouble falling asleep with heavy daytime fatigue is not something to carry alone. It is not a willpower problem; talking to a doctor is an ordinary step.',
+  '今晚的最后一句':'The last line tonight',
+  '你今天已经做得够多了。剩下的事，交给明天那个睡好了的你。':'You have done enough today. Leave the rest to the version of you that has slept.',
+  'Q3 内容营销趋势洞察':'Q3 content marketing insights','字里 · 2026 Q3 · 第 08 期':'ZILI · 2026 Q3 · Issue 08',
+  '背景与目标':'Background and goals','关键进展':'Key progress',
+  '自然流量环比增长':'Organic traffic growth, QoQ','单客获客成本':'Cost per acquired customer','30 日复购率':'30-day repeat rate','渠道效率对比':'Channel efficiency compared',
+  '三个主要渠道的效率差异比预期更大。小红书在获客成本与复购上双优，视频号胜在曝光量级，站内内容承接转化最稳。':'The gap between the three main channels was wider than expected. RED leads on both acquisition cost and repeat purchase, Channels wins on reach, and owned content converts most reliably.',
+  '渠道':'Channel','单客成本':'Cost per customer','30 日复购':'30-day repeat','小红书':'RED','视频号':'Channels','付费投放':'Paid media',
+  '用户之声':'Voice of the user','下一步':'Next steps','Q4 内容侧预算占比 · 40%':'Content share of Q4 budget · 40%','风险提示':'Risks',
+  'Q：如果平台流量政策收紧，增长还成立吗？':'Q: If platform distribution tightens, does the growth still hold?',
+  'A：不成立。因此 Q4 的第一优先级不是加速，而是把已获客户沉淀到可自主触达的渠道里。':'A: No. So the first priority for Q4 is not acceleration but moving acquired customers into channels we can reach directly.',
+  '一花一叶皆有情':'In every flower and leaf, a feeling','案上三件':'Three things on the table',
+  '粗陶壶一把、竹节杯两只、旧锡罐一个。多的都收进柜里，说是「案上留白，心里才空」。':'One rough clay pot, two bamboo-joint cups, one old tin caddy. Everything else is in the cupboard: leave the table empty, he says, and the mind empties too.',
+  '叁':'III','檐下听雨':'Listening to rain under the eaves','小暑三候':'The three pentads of Minor Heat',
+  '温风至：风里已无凉意。':'Warm winds arrive: no coolness left in the air.',
+  '蟋蟀居壁：暑气把虫也逼进墙缝。':'Crickets take to the walls: the heat drives even insects into the cracks.',
+  '鹰始鸷：幼鹰开始学飞。':'Hawks turn fierce: the young ones begin to fly.',
+  '菜畦':'The vegetable patch','门前一畦，够两个人吃':'One bed by the door, enough for two',
+  '友人种菜不施化肥，也不求整齐。他说菜地是最好的老师：你抢不了它的时令，也骗不过它的懈怠。':'My friend grows vegetables without fertilizer and without tidiness. The plot is the best teacher, he says: you cannot rush its season and you cannot fool it about your neglect.',
+  '雨后菜畦，苋菜正好':'The patch after rain — the amaranth is just right','陆':'VI',
+  '三件小事':'Three small things','六分半的溏心蛋':'The six-and-a-half-minute egg',
+  '试了两周才稳定：冷水下锅、水开计时六分半、立刻冰水。听起来没什么，但每天早上多一件确定会成功的事，心情真的会不一样。':'Two weeks of trying before it held: start in cold water, time six and a half minutes from the boil, straight into ice water. It sounds like nothing, but one guaranteed success each morning genuinely changes the mood.',
+  '冷水下锅，鸡蛋提前回温':'Start in cold water, eggs at room temperature','水开转中小火，计时六分半':'Drop to medium-low at the boil, time six and a half minutes','冰水浸两分钟，剥壳不粘':'Two minutes in ice water and the shell slips off',
+  '47 条':'47','这周也有不顺':'Not everything went well this week',
+  '方案被退回两次，周四熬到一点。写周记不是为了假装一切都好，是为了在不好的那几天，也能找到三件还不错的事。':'A proposal came back twice and Thursday ran to one in the morning. Weekly notes are not for pretending all is well; they are for finding three decent things even on the bad days.',
+  '给自己的提醒':'A note to myself',
+  '难过的时候不必强行积极。先睡一觉，明天再看那份被退回的方案。':'No need to force positivity when you feel low. Sleep first; look at the rejected proposal tomorrow.',
+  '小小的期待，是日子里的糖':'Small anticipations are the sugar in the days',
+  /* ── 范本正文 · 加长段落（新中式 / 科技 / 莫兰迪 / 胶片） ── */
+  '水与火':'Water and fire','同一饼茶，两种性格':'One cake of tea, two temperaments',
+  '老白茶宜煮，也宜泡。泡出来清扬，煮出来沉稳。友人偏爱煮，说煮茶像和一个熟人说话——不必客气，直接进入正题。':'Aged white tea takes both boiling and steeping. Steeped it is bright; boiled it is settled. My friend prefers boiling — it is like talking with someone you know well, he says: no formalities, straight to the point.',
+  '投茶':'Leaf','五克，壶温先用沸水醒过。':'Five grams, the pot warmed with boiling water first.',
+  '头泡':'First steep','沸水高冲，十五秒出汤。':'A high pour of boiling water, off at fifteen seconds.',
+  '三泡后':'After the third','每泡延长十秒，至第七泡转煮。':'Add ten seconds per steep; switch to boiling at the seventh.',
+  '关于存茶':'On storing tea',
+  '白茶怕的不是时间，是味和潮。友人存茶只三条：离墙、离地、离气味。九年后开饼，香气还是干净的。':'White tea does not fear time; it fears odor and damp. My friend keeps three rules: off the wall, off the floor, away from smells. Nine years on, the cake still opens clean.',
+  '场景':'Scenario','实测续航':'Measured battery','官方标称':'Official claim',
+  '降噪 + AAC':'ANC + AAC','降噪 + LDAC':'ANC + LDAC','通透模式':'Transparency mode',
+  '一盆冷水：续航':'A bucket of cold water: battery',
+  '开满降噪 + 高码率连接时，实测续航只有 5.2 小时，比官方标称打了七折。':'With full ANC and a high-bitrate connection, measured battery was only 5.2 hours — 70% of the official claim.',
+  '重度用户一天两充跑不掉。':'Heavy users will charge twice a day.',
+  '高码率场景续航达成率 · 74%':'Battery claim achieved at high bitrate · 74%',
+  '颜色都往后退，让光当主角':'Every color steps back and lets the light lead','主色占比建议 · 70%':'Suggested share for the main color · 70%',
+  '先统一大面积':'Unify the large surfaces first','窗帘与沙发套换成同一色温的燕麦色，画面立刻整齐。':'Swap curtains and sofa cover for oat in the same temperature and the room instantly settles.',
+  '再换光':'Then change the light','把冷白灯泡全部换成 3000K，灰粉才会显出温度。':'Replace every cool-white bulb with 3000K; only then does grey-pink read warm.',
+  '最后加点缀':'Then add the accents','黄铜托盘、一支绿植，5% 的点缀足够。':'A brass tray and one plant — 5% of accent is enough.',
+  '避坑':'Pitfall','灰粉最怕配纯白':'Grey-pink hates pure white','选色小技巧':'A color-picking trick',
+  '买布料前先在手机上转成黑白照看一眼：如果明度层次太接近，实景就会「糊」；差三档以上，才有呼吸。':'Before buying fabric, look at it as a black-and-white photo on your phone: if the values sit too close the real room turns muddy; three stops apart and it breathes.',
+  '下期预告':'Next issue','下一期聊苔绿：同一套减法逻辑，换一个更难驾驭的颜色。':'Next time, moss green: the same subtractive logic on a harder color.',
+  '落地与迷路':'Landing and getting lost',
+  '前两天几乎没拍。陌生城市的头四十八小时全用来走路：认街口、记面馆的位置、试探哪条巷子晚上还亮着灯。':'I barely shot for two days. The first forty-eight hours in a strange city went to walking: learning corners, memorizing where the noodle shop is, testing which alley still has lights at night.',
+  '先熟悉，再举相机':'Get familiar first, then raise the camera','，这是我这两年学到最有用的一条。':' — the most useful thing I have learned in two years.',
+  '阴天 +1 档，f/5.6 区间对焦':'+1 stop on overcast days, f/5.6 zone focus',
+  '张 · 这卷最后留下来的比例':'frames · what survived from this roll',
+  '失败的那几张':'The failures',
+  '有三张彻底废了：一张漏光，一张对焦在了栏杆上，一张忘了上卷。奇怪的是，废掉的那天我记得最清楚——因为当时很懊恼。':'Three were ruined: one light leak, one focused on a railing, one where I forgot to advance the film. Oddly, I remember those days most clearly — because I was so annoyed.',
+  '给同样拍胶片的人':'For fellow film shooters',
+  '过安检时坚持要求手检；高感光胶片尤其怕 X 光。多花的三分钟，能救一整卷。':'Insist on a hand check at security; fast film especially fears X-rays. Three extra minutes can save a whole roll.',
+  /* ── 范本正文 · 加长段落（自然 / 极客 / 手账 / 海报） ── */
+  '林间到山脊，两种风':'Forest to ridge, two kinds of wind','时间与体力':'Time and effort',
+  '停车场出发，林间缓上。':'Leave the parking lot, a gentle climb through forest.',
+  '抵达垭口，补水休息十分钟。':'Reach the saddle; water and ten minutes of rest.',
+  '登顶，风大，加了一件风衣。':'Summit; strong wind, windbreaker on.',
+  '下撤回到停车场，全程 5 小时 20 分。':'Back down to the parking lot; 5 hours 20 minutes in total.',
+  '距离与爬升 · 体力中等即可完成':'Distance and gain · moderate fitness is enough',
+  '下山留足两小时':'Leave two full hours for the descent','碎石坡下得慢，赶时间最容易受伤。':'Scree is slow going; rushing is how people get hurt.',
+  '为什么一直在走':'Why I keep walking',
+  '山不解决任何问题。它只是把你从消息、工位和情绪里拎出来四个小时，然后你会发现——原来那些事，没有一件需要你每分钟都在意。':'Mountains solve nothing. They lift you out of messages, desk and mood for four hours, and then you notice that not one of those things needed your attention every minute.',
+  '三个关键配置':'Three key settings','配置项':'Setting','值':'Value','说明':'Note',
+  '不设会用平台默认，八成构建失败源于此':'Left unset it falls back to the platform default — the cause of most build failures',
+  '模板已配好，无需改动':'Already set in the template, leave it alone',
+  '填错会部署出空白页':'Get this wrong and you deploy a blank page',
+  '验收清单':'Acceptance checklist','首屏加载优化后 · 0.9s（原 2.4s）':'First load after tuning · 0.9s (was 2.4s)',
+  '本周完成':'Done this week','两张照片，一周的证据':'Two photos, a week of evidence','一周时间去哪了':'Where the week went',
+  '周一':'Monday','开了三个会，什么也没推进。':'Three meetings, nothing moved.',
+  '周三':'Wednesday','方案初稿动笔，效率最好的一天。':'Started the first draft; the most productive day.',
+  '周五':'Friday','提前一小时下班，去了书店。':'Left an hour early, went to the bookshop.',
+  '周日':'Sunday','什么都没干，睡到十点。':'Did nothing, slept until ten.',
+  '把日子过成自己喜欢的样子。':'Shape the days into something you actually like.',
+  '碎碎念：这周还发现，把「必须做」改写成「打算做」，心情会好很多。语言真的会骗过大脑，好用。':'Rambling: this week I also found that rewriting "must do" as "plan to do" lifts the mood a lot. Language really does trick the brain. Useful.',
+  '留给下周的一个问题':'A question for next week','问自己':'Ask yourself',
+  '这周有哪件事，其实不做也没人在意？找到它，下周直接删掉。':'Which thing this week would nobody have missed? Find it and delete it next week.',
+  '准备是一种拖延':'Preparation is a form of delay',
+  '真相是：没有人是准备好了才开始的。是开始了，才逐渐准备好的。收藏夹里的教程、书架上的新书、脑子里的完整计划——它们的真正作用，是让你在原地也感觉自己在前进。':'The truth: nobody starts because they are ready; they become ready because they started. Saved tutorials, unread books, the complete plan in your head — their real function is to make standing still feel like progress.',
+  '三个证据':'Three pieces of evidence',
+  '你收藏的教程，90% 再没打开过':'90% of the tutorials you saved were never opened again',
+  '你关注的大神，起步时都比现在的你差':'Every expert you follow was worse than you are now when they began',
+  '你唯一后悔的，是去年没开始':'Your only regret is not starting last year',
+  '砍到多小才算小':'How small is small enough',
+  '想写书 → 今晚写三百字。想健身 → 今晚做十个深蹲。想开店 → 今晚卖出一件。':'Want to write a book → three hundred words tonight. Want to get fit → ten squats tonight. Want to open a shop → sell one item tonight.',
+  '小到不可能失败为止。':'Small enough that failure is impossible.',
+  '二选一。现在选。':'Two options. Choose now.',
+  '一年后，你会感谢今天动手的自己；或者，继续羡慕那些动了手的人。':'A year from now you will thank the version of you who started today — or keep envying the people who did.',
+  /* ── 组件插入占位文案 ── */
+  '色块标题写在这里':'Color band heading goes here','居中标题写在这里':'Centered heading goes here','巨号标题，一句话立住重点':'Oversized heading — one line that lands the point',
+  '中英双行标题':'Two-line bilingual heading','通栏线框标题':'Full-width framed heading','专题':'FEATURE','标签标题写在这里':'Tagged heading goes here',
+  '圆号标题写在这里':'Circled-number heading goes here','大数字标题，重点分明':'Big-numeral heading, clearly ranked','描边序号标题':'Outlined-number heading','编号竖条标题':'Number-bar heading',
+  '第一条要点，写清楚一句话。':'First point — one clear sentence.','第二条要点。':'Second point.','第三条要点。':'Third point.','第一条要点。':'First point.',
+  '分隔线列表的第一行。':'First row of the divided list.','第二行内容。':'Second row.','第三行内容。':'Third row.',
+  '要点一':'Point one','要点二':'Point two','要点三':'Point three','要点四':'Point four',
+  '第一步的标题':'Title of step one','这一步具体要做什么。':'What this step actually involves.','第二步的标题':'Title of step two','第三步的标题':'Title of step three',
+  '项目':'Item','数值':'Value','说明':'Note','第一项':'First item','补充说明':'Additional note','第二项':'Second item','第三项':'Third item',
+  '左侧指标说明':'Left metric label','3.4倍':'3.4×','右侧指标说明':'Right metric label','↑ 同比':'↑ YoY','2,300万':'23M',
+  '用一句话解释这个数字背后的意义。':'Explain in one sentence what this number means.',
+  '以下为正文':'BODY BEGINS','全文完 · 感谢阅读':'END · Thanks for reading','觉得有用就转发':'Useful? Share it','关注后不错过下一篇':'Follow so you do not miss the next one',
+  '#话题一':'#topic-one','#话题二':'#topic-two','#话题三':'#topic-three',
+  '点击或拖拽图片到此 · 通栏大图':'Click or drag an image here · full-bleed','点击或拖拽图片到此 · 圆角图':'Click or drag an image here · rounded',
+  '头像':'Avatar','人物 / 头像说明':'Person / avatar caption','图片下面配一句话，让画面有落点。':'One line under the image so the picture lands.',
+  '—— 出处 / 摄影':'— Source / Photography','图片下方主色说明条':'Accent caption bar under the image',
+  '图 1':'Fig. 1','图 2':'Fig. 2','图 3':'Fig. 3','图 4':'Fig. 4','左图的说明':'Caption for the left image','右图的说明':'Caption for the right image',
+  '带编号的图文小节':'Numbered image-and-text section','图注：这一步的画面说明':'Caption: what this step looks like',
+  '阴影卡片标题':'Shadow card title','浮起来的白卡，适合放重点结论或需要突出的一段内容。':'A lifted white card — good for a key conclusion or a passage that needs to stand out.',
+  '顶部强调卡':'Top-accent card','顶部一条主色粗线，层级明确又不抢正文。':'A thick accent rule on top: clear hierarchy without stealing from the body.',
+  '主色实底卡片':'Solid accent card','整块用当前模板主色，适合放全文最重要的一个结论。':'The whole block in the template accent — for the single most important conclusion.',
+  '编号卡片标题':'Numbered card title','编号 + 标题 + 说明，一组要点用同一款卡片依次排列。':'Number, title and note — run a set of points through the same card.',
+  '把一段值得停下来读两遍的话放在这里。':'Put a passage worth reading twice here.','—— 出处 / 受访者':'— Source / Interviewee',
+  '便签':'Memo','纸感便签卡，适合放提醒、题外话或作者的私人补充。':'A paper-memo card for reminders, asides or the author\u2019s private notes.',
+  '推荐做法':'Recommended','该怎么做，写清楚。':'Spell out what to do.','常见误区':'Common mistake','容易踩的坑，写清楚。':'Spell out the trap people fall into.',
+  '第一点要说的内容':'What the first point says','第二点要说的内容':'What the second point says','第三点要说的内容':'What the third point says',
+  '主色图标块 + 标题，适合功能介绍、卖点罗列。':'Accent icon block plus title — good for features and selling points.',
+  '最轻的一种卡片，只用一条主色竖线划出层级。':'The lightest card: one accent rule marks the hierarchy.',
+  '短线前缀标题':'Rule-prefixed heading','荧光下划线标题':'Highlight-underlined heading','浅底色标题写在这里':'Tinted heading goes here','边框标题写在这里':'Boxed heading goes here',
+  '大暑':'MAJOR HEAT','主标题旁的一句补充说明':'A note beside the main title','主标题写在这里':'Main title goes here','副标题：补充一句说明或时间地点':'Subtitle: a note, or the time and place',
+  '浅底卡片标题':'Tinted card title','用当前模板主色的浅色底，适合放要点、总结或补充信息。':'A light wash of the template accent — for key points, summaries or extras.',
+  '虚线边框卡片，适合放补充说明、注意事项或延伸阅读。':'A dashed-border card for notes, caveats or further reading.',
+  '主色标题栏 + 白底正文，层级最清楚的一种卡片。':'Accent title bar over white body — the clearest hierarchy of any card.',
+  '左栏标题':'Left column title','左边这一栏的内容。':'Content of the left column.','右栏标题':'Right column title','右边这一栏的内容。':'Content of the right column.',
+  '指标名称 · 68%':'Metric name · 68%',
+  '这一年发生了什么，一句话写清。':'What happened this year, in one sentence.','下一个节点的进展与变化。':'Progress and change at the next milestone.','当下的位置，以及接下来要做的事。':'Where things stand now and what comes next.',
+  '这一条要说明的内容写在这里。':'What this item explains goes here.','第二条的说明内容。':'The second item\u2019s note.','第三条的说明内容。':'The third item\u2019s note.',
+  '正文分割':'SECTION BREAK','第一章节的标题':'Title of chapter one','第二章节的标题':'Title of chapter two','第三章节的标题':'Title of chapter three',
+  '第一个数据说明':'First stat label','2.6倍':'2.6×','第二个数据说明':'Second stat label','第三个数据说明':'Third stat label',
+  /* ── 首页 · 模板示例预览 ── */
+  '随笔 · 生活':'ESSAY · LIFE','把话说给自己听':'Saying it to yourself',
+  '有些句子不必说给谁听。写下来，只是为了让心里那团模糊的东西，有了轮廓。':'Some sentences need no listener. Writing them down only gives the blur inside an outline.',
+  '安静，是一种被低估的':'Quiet is an underrated','表达方式。':'way of speaking.',
+  '当你不再急着填满每一处空白，文字自会浮现它该有的节奏。':'Stop rushing to fill every blank and the words find their own rhythm.',
+  '一件让我心里一暖的小事':'A small thing that warmed me',
+  '今天路过巷口，卖花的阿姨多塞给我两支满天星，说：拿着吧，配你手里那束好看。':'Passing the alley today, the flower seller pressed two extra sprigs of baby\u2019s breath on me: "Take them, they suit the bunch in your hand."',
+  '生活的甜，都藏在':'The sweetness of life hides','不起眼的缝隙里。':'in unremarkable gaps.',
+  '小提示':'Tip','把今天的小确幸写下来，一周后再看，会攒下一整片温柔。':'Write down today\u2019s small joy; look back in a week and you will have a whole field of tenderness.',
+  'FEATURE · 深度观察':'FEATURE · DEEP DIVE','01 — 现象':'01 — SYMPTOM','效率之外，我们失去了什么':'What we lose beyond efficiency',
+  '当每一分钟都被安排，留给意外与灵感的缝隙也随之消失。':'When every minute is scheduled, the gaps that hold accident and inspiration disappear with them.',
+  '「真正的深度，往往诞生于无所事事的片刻。」':'"Real depth is usually born in moments of doing nothing."','02 — 观点':'02 — ARGUMENT',
+  '深夜电台 · Vol.12':'LATE NIGHT RADIO · Vol. 12','凌晨三点的诚实':'Honesty at three in the morning',
+  '白天我们都戴着面具，只有夜深了，才敢对自己说几句真话。':'By day we all wear masks; only late at night do we dare tell ourselves the truth.',
+  '有些话，只有夜里':'Some words can only be spoken','才说得出口。':'at night.',
+  '如果此刻你也醒着，愿这段文字，能陪你到天亮。晚安。':'If you are awake too, may these words keep you company until morning. Good night.',
+  '行业报告 · 2025':'INDUSTRY REPORT · 2025','内容行业的三个新拐点':'Three new inflection points in content',
+  '读者偏好长图文':'Readers prefer long-form','排版带来的完读率':'Completion lift from typesetting',
+  '设计感不再是加分项，而是内容可信度的一部分。':'Design is no longer a bonus; it is part of a piece\u2019s credibility.',
+  '閒 記 · 其 三':'I D L E　N O T E S　·　I I I','山 居 偶 得':'N O T E S　F R O M　T H E　H I L L S',
+  '晨起推窗，云雾未散，远山如墨。执一盏清茶，看它慢慢淡去，心也随之空了半分。':'Opening the window at dawn: mist unlifted, far hills like ink. Holding a cup of clear tea, watching it fade, the mind empties a little too.',
+  '行 到 水 穷 处':'W A L K　T O　W H E R E　W A T E R S　E N D','坐 看 云 起 时':'S I T　A N D　W A T C H　C L O U D S　R I S E',
+  '图注':'Caption','预览已开启':'Preview on','通栏线框':'Full-width frame',
+  /* ── 编辑器组件面板 ── */
+  '图文':'Image & Text','列表':'List','基础卡片':'Basic cards','更多样式':'More styles','多栏与对比':'Columns & compare',
+  '图片':'Image','图文混排':'Image + text','多图':'Multi-image','流程':'Flow','表格':'Table','正文与分割':'Body & dividers',
+  '短线标题':'Rule heading','荧光下划线':'Highlight underline','圆号标题':'Circled number','大数字标题':'Big numeral','描边序号':'Outlined number','编号竖条':'Number bar',
+  '色块标题':'Color band','浅底标题':'Tinted heading','边框标题':'Boxed heading','居中标题':'Centered heading','巨号标题':'Oversized heading','中英标题':'Bilingual heading','通栏标题':'Full-width heading','标签标题':'Tagged heading','主副同行':'Title + sub inline','标题＋副标':'Title + subtitle',
+  '浅底卡片':'Tinted card','虚线卡片':'Dashed card','标题栏卡片':'Title-bar card','阴影卡片':'Shadow card','顶部强调':'Top accent','主色实底':'Solid accent','竖线要点':'Line point','纸感便签':'Paper memo','图标标题卡':'Icon title card','编号卡片':'Numbered card',
+  '双栏卡片':'Two-column card','对比卡片':'Compare card','三栏要点':'Three-column points','引号卡片':'Quote card',
+  '通栏大图':'Full-bleed image','圆角图':'Rounded image','圆形头像':'Circular avatar','主色说明条':'Accent caption bar',
+  '图＋引言':'Image + quote','编号图文':'Numbered image text','四图九宫':'Four-image grid','双图带图注':'Two images + captions',
+  '标签列表':'Tag list','圆号列表':'Circled list','符号列表':'Symbol list','分隔线列表':'Divided list','双列要点':'Two-column points',
+  'STEP 步骤':'STEP flow','时间线':'Timeline','目录':'Contents',
+  '数据三格':'Three stats','巨号数据':'Big stat','进度条数据':'Bar stat','双格指标':'Two KPIs','涨跌数据':'Trend stat','数据金句':'Stat quote','数据表格':'Data table',
+  '文字分割':'Labeled divider','三点分割':'Three-dot divider','编号分割':'Numbered divider','粗线分割':'Thick divider','左标分割':'Left-label divider',
+  '主色行动卡':'Accent CTA card','简洁收尾':'Simple ending','话题标签':'Topic tags',
+  '输入正文，或从左侧组件库插入…':'Type your text, or insert a component from the left…',
+  /* ── 首页 · 统一组件库展示 ── */
+  '标题组件 · HEADING':'HEADING','大标题 / 小标题 / 章节编号':'H1 / H2 / chapter number',
+  '主标题的样子':'How a main title looks','带编号的章节小标题':'Numbered chapter subhead','次级小标题的样子':'How a lower-level subhead looks',
+  '正文组件 · BODY':'BODY','标准阅读宽度 / 舒适行距':'Reading width / comfortable leading',
+  '好的正文排版，不打断阅读，只是安静地把内容送到读者眼前。行距舒展，字距温和，':'Good body typesetting never interrupts reading — it quietly delivers the content. Generous leading, gentle letter-spacing, and ',
+  '清晰可辨。':' that stay legible.',
+  '段落之间留出足够的空隙，让眼睛有休息的地方。':'Leave enough space between paragraphs so the eye has somewhere to rest.',
+  '金句组件 · QUOTE':'QUOTE','留白 / 引号 / 极简强调':'Space / quote marks / minimal emphasis',
+  '生活的秩序':'The order of a life','藏在文字的间距里':'hides in the spacing of words','另一种引号样式的金句。':'A pull quote in the alternate quote-mark style.',
+  '图片组件 · IMAGE':'IMAGE','16:9 / 圆角 8px / 图注':'16:9 / 8px radius / caption',
+  '1 6 : 9　图 片 区 域':'1 6 : 9　I M A G E　A R E A','图片说明文字 · 居中、克制、次要':'Caption text · centered, restrained, secondary',
+  '分割线组件 · DIVIDER':'DIVIDER','细线 / 点线 / 留白':'Hairline / dots / space',
+  '卡片组件 · CARD':'CARD','轻边框 / 层级':'Light border / hierarchy',
+  '要点卡片标题':'Key-point card title','简洁的信息层级，托起内容。':'A clean hierarchy that holds the content up.',
+  '标签式卡片':'Labeled card','头部标签 + 内容，用于强调分类。':'Header label + content, for emphasizing a category.',
+  '重点':'key points','统一组件库':'Unified Component Library','COMPONENT LIBRARY':'COMPONENT LIBRARY',
+  '素系模板 · 新':'Plain · New','基础':'Basic','序号':'Numbers','✦ AI 一键排版':'✦ AI One-click Formatting','Pro 会员 · 2.4G / 10G':'Pro member · 2.4G / 10G',
+  '素纸':'Plain Paper','空':'Void','和纸':'Washi','行间':'Interline',
+  '衬线 · 大留白':'Serif · Airy','无衬线 · 克制':'Sans · Restrained','暖白 · 淡墨':'Warm white · Pale ink','阅读 · 衬线':'Reading · Serif',
+  '适合 随笔 · 观察 · 城市':'For essays · observation · city','适合 方法 · 效率 · 思考':'For method · efficiency · thinking',
+  '适合 节气 · 饮食 · 生活':'For seasons · food · life','适合 读书 · 长文 · 评论':'For reading · long reads · reviews',
+  /* ── 精品模板 ── */
+  '鎏金':'Gilt','铅字':'Letterpress','奶芙':'Cream','先锋':'Vanguard','雅仕':'Gentry',
+  '黑金 · 质感':'Black gold · Texture','报刊 · 复古':'Newsprint · Retro','奶油 · 甜感':'Cream · Sweet','企业 · 硬朗':'Corporate · Bold','年报 · 蓝灰':'Annual report · Blue-gray',
+  '适合 财经 · 品牌 · 知识付费':'For finance · brand · paid content','适合 评论 · 人文 · 城市记录':'For commentary · culture · city notes',
+  '适合 探店 · 甜品 · 生活方式':'For food finds · desserts · lifestyle','适合 官微 · 发布 · 招聘':'For official posts · launches · hiring',
+  '适合 机构 · 年报 · 盘点':'For institutions · annual reports · reviews',
+  /* ── 一键排版弹窗 ── */
+  '粘贴原文，自动识别标题、章节、金句、清单等结构，套用模板一键成稿。':'Paste raw text — headings, sections, pull quotes and lists are detected automatically and formatted with a template.',
+  '✦ 智能匹配':'✦ Smart match','排版选项':'Layout options','提取首行为标题':'Use first line as title','章节自动编号':'Auto-number sections','末尾加关注卡':'Append follow card',
+  '智能引擎':'Engine','✦ AI 深度理解':'✦ AI deep reading','（可选）':' (optional)','检测中…':'Checking…','已重置为上次保存':'Reverted to last save',
   '全部':'All',
   '极简':'Minimal',
   '精品':'Premium',
@@ -8829,7 +9352,7 @@ function walk(root, toEn){
   if(root.nodeType !== 1 && root.nodeType !== 9) return;
   if(root.nodeType === 1){
     if(/^(SCRIPT|STYLE)$/.test(root.tagName)) return;
-    if(root.id === 'canvas' || (root.closest && root.closest('#canvas,#pvArt,.tc-prev,.about-kw'))) return; /* 正文内容不翻译 */
+    if(root.id === 'canvas' || (root.closest && root.closest('#canvas,#pvArt'))) return; /* 正文内容不翻译 */
     trAttrs(root, toEn);
     if(root.tagName === 'TEXTAREA') return; /* 只翻译 placeholder，不动内容 */
   }
