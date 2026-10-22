@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://typeoai.cn/sitemap.xml
